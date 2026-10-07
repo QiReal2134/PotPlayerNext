@@ -18,7 +18,7 @@ public sealed partial class MainWindow : Window
     private PreviewWindow? preview;
     private CancellationTokenSource? filterDebounce;
     private int scanVersion;
-    private int previewVersion;
+    private readonly LatestAsyncRequest previewRequests = new();
     private bool closed;
     private readonly WindowAppearance appearance;
     private PlaybackOptions playbackOptions = PlaybackSettings.Load();
@@ -52,7 +52,7 @@ public sealed partial class MainWindow : Window
         Root.AddHandler(UIElement.KeyDownEvent, new KeyEventHandler(Root_KeyDown), true);
         Closed += (_, _) =>
         {
-            closed = true; ++scanVersion; ++previewVersion;
+            closed = true; ++scanVersion; previewRequests.Invalidate();
             filterDebounce?.Cancel();
             appearance.Dispose(); CancelThumbnails(); thumbnails.Dispose(); preview?.Close();
         };
@@ -96,21 +96,22 @@ public sealed partial class MainWindow : Window
         catch (Exception error) { Report(error); }
     }
 
-    private async Task OpenPathAsync(string path)
+    private Task OpenPathAsync(string path)
     {
         // Probe the requested file independently: a shell launch must work beyond the scan limit.
-        var probe = await NativeCatalog.ProbeAsync(path);
-        if (closed) return;
-        if (probe.Error is not null) throw new IOException(probe.Error);
-        if (probe.Items.Count != 1) throw new IOException("该文件不是已支持的图片或视频类型。");
-        var requested = probe.Items[0];
-        ShowPreview(requested, quickPreview: false);
+        return previewRequests.RunAsync(() => NativeCatalog.ProbeAsync(path), probe =>
+        {
+            if (closed) return;
+            if (probe.Error is not null) throw new IOException(probe.Error);
+            if (probe.Items.Count != 1) throw new IOException("该文件不是已支持的图片或视频类型。");
+            ShowPreview(probe.Items[0], quickPreview: false);
+        });
     }
 
     private async Task<bool> LoadFolderAsync(string path)
     {
         var version = ++scanVersion;
-        ++previewVersion;
+        previewRequests.Invalidate();
         preview?.Close();
         CancelThumbnails(); thumbnails.Clear();
         Loading.IsActive = true; Loading.Visibility = Visibility.Visible;
@@ -200,7 +201,7 @@ public sealed partial class MainWindow : Window
     private void ShowPreview(MediaItem item, bool quickPreview = true)
     {
         if (closed) return;
-        ++previewVersion;
+        previewRequests.Invalidate();
         preview?.Close();
         var opened = new PreviewWindow(item, PlaybackSettings.Load(), message => { if (!closed) Status.Text = message; }, quickPreview);
         preview = opened;
@@ -209,13 +210,14 @@ public sealed partial class MainWindow : Window
         RuntimeEvidence.Write("preview-activated", new { kind = item.Kind, fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(item.Path))) });
     }
 
-    private async Task ShowPathPreviewAsync(string path)
+    private Task ShowPathPreviewAsync(string path)
     {
-        var version = ++previewVersion;
-        var result = await NativeCatalog.ProbeAsync(path);
-        if (closed || version != previewVersion) return;
-        if (result.Error is not null) throw new IOException(result.Error);
-        if (result.Items.Count == 1) ShowPreview(result.Items[0]);
+        return previewRequests.RunAsync(() => NativeCatalog.ProbeAsync(path), result =>
+        {
+            if (closed) return;
+            if (result.Error is not null) throw new IOException(result.Error);
+            if (result.Items.Count == 1) ShowPreview(result.Items[0]);
+        });
     }
 
     private async void MediaList_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
@@ -336,7 +338,7 @@ public sealed partial class MainWindow : Window
     private void ExplorerPreview_Toggled(object sender, RoutedEventArgs e)
     {
         if (!settingsReady) return;
-        ++previewVersion;
+        previewRequests.Invalidate();
         try
         {
             BackgroundPreviewHost.Configure(ExplorerPreview.IsOn);

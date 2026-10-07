@@ -10,8 +10,7 @@ public sealed class ThumbnailService : IDisposable
     private const int Capacity = 128;
     private readonly SemaphoreSlim workers = new(4, 4);
     private readonly LruCache<string, BitmapImage> cache = new(Capacity);
-    private readonly Dictionary<string, Task<BitmapImage?>> inFlight = new();
-    private readonly object inFlightLock = new();
+    private readonly SharedAsyncLoads<string, BitmapImage> inFlight = new();
     private bool disposed;
 
     public Task<BitmapImage?> GetAsync(MediaItem item, CancellationToken token)
@@ -19,15 +18,7 @@ public sealed class ThumbnailService : IDisposable
         if (disposed || token.IsCancellationRequested) return Task.FromResult<BitmapImage?>(null);
         if (cache.TryGet(item.Path, out var hit)) return Task.FromResult<BitmapImage?>(hit);
 
-        lock (inFlightLock)
-        {
-            if (inFlight.TryGetValue(item.Path, out var existing))
-                return existing;
-
-            var task = LoadThumbnailInternalAsync(item, token);
-            inFlight[item.Path] = task;
-            return task;
-        }
+        return inFlight.GetAsync(item.Path, sharedToken => LoadThumbnailInternalAsync(item, sharedToken), token);
     }
 
     private async Task<BitmapImage?> LoadThumbnailInternalAsync(MediaItem item, CancellationToken token)
@@ -67,15 +58,8 @@ public sealed class ThumbnailService : IDisposable
             System.Diagnostics.Debug.WriteLine($"Thumbnail: {error.Message}");
             return null;
         }
-        finally
-        {
-            lock (inFlightLock)
-            {
-                inFlight.Remove(item.Path);
-            }
-        }
     }
 
-    public void Clear() => cache.Clear();
-    public void Dispose() { disposed = true; Clear(); /* Do not dispose a semaphore used by pending requests. */ }
+    public void Clear() { inFlight.Clear(); cache.Clear(); }
+    public void Dispose() { disposed = true; inFlight.Dispose(); cache.Clear(); /* Pending loads still release workers. */ }
 }

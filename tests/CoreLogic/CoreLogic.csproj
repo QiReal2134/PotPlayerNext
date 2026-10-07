@@ -12,5 +12,9 @@
     <Compile Include="../../src/PotPlayerNext/Services/PlaybackOptions.cs" Link="PlaybackOptions.cs" />
     <Compile Include="../../src/PotPlayerNext/Services/PreviewGeometry.cs" Link="PreviewGeometry.cs" />
     <Compile Include="../../src/PotPlayerNext/Services/LaunchRequest.cs" Link="LaunchRequest.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/SharedAsyncLoads.cs" Link="SharedAsyncLoads.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/LatestAsyncRequest.cs" Link="LatestAsyncRequest.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/PreviewSessionState.cs" Link="PreviewSessionState.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/PreviewKeyLatch.cs" Link="PreviewKeyLatch.cs" />
   </ItemGroup>
 </Project>

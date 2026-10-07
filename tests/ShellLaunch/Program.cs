@@ -40,7 +40,7 @@ try
             try
             {
                 object? windowContract = null;
-                var watch = Stopwatch.StartNew(); var loaded = false;
+                var watch = Stopwatch.StartNew(); var loaded = false; var keyboardReady = false;
                 while (watch.Elapsed < TimeSpan.FromSeconds(30))
                 {
                     if (process.HasExited) throw new InvalidOperationException($"Player exited unexpectedly: {ExitDescription(process)}; events: {eventsPath}");
@@ -57,7 +57,8 @@ try
                         if (events.Any(e => e.GetProperty("name").GetString() is "preview-error" or "operation-error" or "ui-unhandled-error")) throw new InvalidOperationException($"Player reported an error; events: {eventsPath}");
                         var activated = events.Any(e => e.GetProperty("name").GetString() == "preview-activated" && e.GetProperty("data").GetProperty("fileToken").GetString() == expectedToken);
                         var decoded = events.Any(e => e.GetProperty("name").GetString() == (kind == "image" ? "image-decoded" : "video-opened") && e.GetProperty("data").GetProperty("width").GetInt32() > 0);
-                        if (activated && decoded)
+                        keyboardReady = events.Any(e => e.GetProperty("name").GetString() == "preview-keyboard-focus" && e.GetProperty("data").GetProperty("focused").GetBoolean());
+                        if (activated && decoded && (!directOnly || keyboardReady))
                         {
                             if (directOnly)
                             {
@@ -86,10 +87,10 @@ try
                     }
                     await Task.Delay(100);
                 }
-                if (!loaded) throw new TimeoutException("No requested preview activation and media decode evidence.");
+                if (!loaded) throw new TimeoutException("No requested activation, media decode, or (direct-only) keyboard focus evidence.");
                 await Task.Delay(1200);
                 if (process.HasExited) throw new InvalidOperationException("Player exited after media load.");
-                evidence.Add(new { repetition = repetition + 1, kind, route = defaultExtension is not null ? "ShellExecuteEx current default, no class override" : viaShell ? "ShellExecuteEx explicit registered ProgID" : "quoted ArgumentList direct launch", passed = true, correctFile = true, decoded = true, windowContract });
+                evidence.Add(new { repetition = repetition + 1, kind, route = defaultExtension is not null ? "ShellExecuteEx current default, no class override" : viaShell ? "ShellExecuteEx explicit registered ProgID" : "quoted ArgumentList direct launch", passed = true, correctFile = true, decoded = true, keyboardReady, windowContract });
                 Console.WriteLine($"PASS: {kind}, {(defaultExtension is not null ? "current default (no class override)" : viaShell ? "registered shell class" : "direct launch")}, Unicode/space/%1/& path, preview activation + decode.");
             }
             finally { if (!process.HasExited) { process.Kill(entireProcessTree: true); await process.WaitForExitAsync(); } }

@@ -33,3 +33,5 @@ Scope Gate：源代码修改限 PotPlayerNext；.NET SDK 安装于项目 `.tools
 原生转储适配器：preferred_tool=IDA MCP / native debugger；selected_tool=注册 exec_command + 官方签名 ProcDump（未执行）；capability_match=本项目独立进程异常转储；risk=仅测试进程内存；fallback_reason=无已注册 IDA/WinDbg。下载签名验证有效，但启动调用被注册执行工具拒绝，未改用其他通道启动该工具。后续只使用既有普通应用启动测试及应用自身 opt-in 事件，不能视为已取得原生栈。
 
 0.2.4 范围：用户要求不先开主界面的空格预览，源码/新MSI注册HKCU Run后台组件及维护停止，但本轮不覆盖用户真实0.2.3安装、不执行新包安装/卸载、不改UserChoice。Scope Gate采用项目内publish目录+GUID隔离的后台mutex/事件，真实进程隐藏/单例/stop-helper/重启测试经exec adapter执行，JSON绑定DLL哈希；无键盘注入、无Explorer UI操作、不写真实Run。MSI通过WindowsInstaller只读数据库adapter检查550文件、Run值、执行顺序、DWORD关闭偏好和0个UserChoice写入。UI adapter被用户物理Esc停止后，未再调用；普通非UI构建继续，无法视为UI验收已恢复。
+
+0.2.7 修复 scope：trigger=用户要求修复审查两处并发缺陷及首次空格/Esc关闭、关闭后重开问题；preferred_tool=Current AI Agent / CLI build adapter；selected_tool=注册 apply_patch / exec_command；capability_match=工作区 C#/WinUI 源码与回归、独立发布构建和GUID隔离生命周期测试；risk=只改本仓库及候选产物；fallback_reason=原生工具可用。Scope Gate 不覆盖真实安装/后台进程、Run或UserChoice，不推送或发布新版本，不恢复已停止Computer Use，不注入按键。feedback_gate=共享取消隔离、旧探测无覆盖、预览会话和按键去重回归、WinUI构建/媒体启动通过；exit_condition=有限测试和本地0.2.7候选包，实际Explorer按键仍标待验收。证据保存到 artifacts/fixes-027 与既有测试各GUID目录。

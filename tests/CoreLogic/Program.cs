@@ -156,6 +156,7 @@ Check("Image preview opens at its aspect ratio within work area", () =>
     var small = PreviewGeometry.ImageClientSize(4000, 1000, 800, 600);
     Require(small == (720, 180));
 });
+count += await AsyncRequestChecks.RunAsync();
 Console.WriteLine($"PASS: {count} production core-logic checks. No UI interaction performed.");
 return 0;
 

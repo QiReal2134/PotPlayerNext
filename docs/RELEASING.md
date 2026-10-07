@@ -13,7 +13,7 @@ WinUI NuGet依赖记录于packages.lock.json，构建使用locked restore，避�
 - Actions → Windows build and release → Run workflow：默认仅构建。勾选 publish 时，必须有与当前构建提交完全一致的版本标签。
 - 任一步失败不会公开新版本。上传失败只保留草稿；重新运行可补齐草稿，已公开的 Release 不被覆盖。
 
-版本以 `src/PotPlayerNext/PotPlayerNext.csproj` 的 Version 为单一来源；标签必须精确匹配。当前安装器支持三段数字版本，不接受 prerelease 后缀。首次计划发布 v0.2.6。
+版本以 `src/PotPlayerNext/PotPlayerNext.csproj` 的 Version 为单一来源；标签必须精确匹配。当前安装器支持三段数字版本，不接受 prerelease 后缀。v0.2.6 已完成实际标签构建和公开发布；当前 0.2.7 为本地修复候选，尚未推送或发布。
 
 ## 发布新版本
 

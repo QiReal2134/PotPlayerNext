@@ -3,21 +3,23 @@ using System.Text;
 
 namespace PotPlayerNext.Services;
 
-/// <summary>Opt-in Explorer bridge. No logging, no key suppression, no periodic polling.</summary>
+/// <summary>Opt-in Explorer bridge; only dismissing its own preview consumes a key.</summary>
 public sealed class ExplorerSpacePreview : IDisposable
 {
     private const int WhKeyboardLl = 13;
     private const int Space = 0x20;
+    private const int Escape = 0x1B;
     private readonly HookProcedure callback;
     private readonly Action<Action> dispatch;
-    private readonly Action<string> preview;
+    private readonly Action<string, IntPtr> preview;
+    private readonly Func<IntPtr, Action?> captureDismiss;
     private IntPtr hook;
-    private bool held;
+    private readonly PreviewKeyLatch keys = new();
     private bool disposed;
 
-    public ExplorerSpacePreview(Action<Action> dispatch, Action<string> preview)
+    public ExplorerSpacePreview(Action<Action> dispatch, Action<string, IntPtr> preview, Func<IntPtr, Action?> captureDismiss)
     {
-        this.dispatch = dispatch; this.preview = preview;
+        this.dispatch = dispatch; this.preview = preview; this.captureDismiss = captureDismiss;
         callback = OnKeyboard;
         hook = SetWindowsHookEx(WhKeyboardLl, callback, GetModuleHandle(null), 0);
         if (hook == IntPtr.Zero) throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
@@ -25,16 +27,30 @@ public sealed class ExplorerSpacePreview : IDisposable
 
     private IntPtr OnKeyboard(int code, IntPtr message, IntPtr data)
     {
-        if (code >= 0 && Marshal.ReadInt32(data) == Space)
+        var key = code >= 0 ? Marshal.ReadInt32(data) : 0;
+        if (!disposed && key is Space or Escape)
         {
             var keyMessage = message.ToInt64();
-            if (keyMessage is 0x101 or 0x105) held = false;
-            else if (keyMessage == 0x100 && !held)
+            if (keyMessage is 0x101 or 0x105)
             {
-                held = true;
+                if (keys.EndUp(key)) return new IntPtr(1);
+            }
+            else if (keyMessage == 0x100)
+            {
+                if (!keys.BeginDown(key))
+                    return keys.IsSuppressed(key) ? new IntPtr(1) : CallNextHookEx(hook, code, message, data);
                 var window = GetForegroundWindow();
-                // Restrict to Explorer. Never capture modified shortcuts; editor check is deferred to dispatch.
-                if (ClassName(window) is "CabinetWClass" or "ExploreWClass" && !HasModifier())
+                if (HasModifier()) return CallNextHookEx(hook, code, message, data);
+                var explorer = ClassName(window) is "CabinetWClass" or "ExploreWClass";
+                if (explorer && IsEditing(window)) return CallNextHookEx(hook, code, message, data);
+                // The HWND may remain on Explorer if first activation/focus was denied.
+                // Close the owned session before reading a new selection. Capture its
+                // generation now so a queued dismissal cannot close a later session.
+                if (captureDismiss(window) is { } dismiss)
+                {
+                    keys.Suppress(key); dispatch(dismiss); return new IntPtr(1);
+                }
+                if (key == Space && explorer)
                     dispatch(() => ReadSelection(window));
             }
         }
@@ -67,7 +83,7 @@ public sealed class ExplorerSpacePreview : IDisposable
                 }
                 item = ((dynamic)selection).Item(0);
                 string path = ((dynamic)item).Path;
-                if (File.Exists(path)) preview(path);
+                if (File.Exists(path)) preview(path, expectedWindow);
                 return;
             }
         }

@@ -157,3 +157,15 @@
 - 最终DLL三次真实WinUI主界面启动均完成动画并按顺序创建主窗口，主窗口存活；实际完成间隔约895ms，含Dispatcher/合成调度。splash-026.json绑定最终DLL哈希。正常/快捷两种模式各2轮图片+视频（共8次）正确文件激活/真实解码/窗口契约通过，open-mode-026.json / preview-mode-026.json。GUID隔离后台隐藏/单例/stop-helper/重启通过，background-026.json。
 - Computer Use未恢复，未发UI输入或取得动画截图；测试事件只证明Storyboard完成、窗口路径与生命周期，不证明每一帧视觉质量、全部DPI/多屏或主题切换。没有覆盖用户现有安装或默认选择；新MSI的实际升级/卸载、Explorer空格和干净机部署仍待验收。
 - 0.2.6 MSI生成与只读数据库检查通过：552个payload文件，包含SplashWindow.xbf及Controls/BrandLogo.xbf，后台动作顺序/偏好与0个UserChoice写入通过。MSI SHA256：96CD86F3BECE8EC95569F01E90CB2576FCA595ED88309F2624EBDB92540EBA40。此项不是最新包安装/升级实测，报告installer-background-026-static.json。
+
+## 0.2.7 审查修复与首次快捷预览关闭候选
+
+- 缩略图共享任务改为独立内部取消源、按消费者取消等待、最后消费者退出才取消工作；Clear/Dispose阻止旧结果回填，同路径替代请求只由自己的entry移除。注册entry先于调用provider，覆盖同步完成/失败重试；仍保留UI上下文、4路worker和128项LRU，不引入轮询或新媒体依赖。
+- 文件直开/路径预览共用最新请求协调器；后发文件、文件夹切换、关闭主窗口或其他预览使旧探测无效，旧失败不覆盖当前状态。
+- 后台记录来源Explorer和当前预览HWND，包含尚未完成的单文件探测。Space/Esc优先关闭本会话，而不是重新读取选中文件并替换窗口；dismiss绑定会话代次，旧排队事件不会关掉后来窗口。关闭消费其重复/释放事件，直到物理释放才允许新按键动作。其他窗口、修饰键、地址栏/重命名不消费。
+- Activated/Loaded排入DispatcherQueue补齐首次焦点，不等待图片/视频解码，不在WM_ACTIVATE同步Focus；保留已有焦点。低级hook可在首次前台仍属于来源Explorer时关闭预览，避免依赖XAML焦点成功。
+- 新增14项生产逻辑回归（总42），覆盖各取消/替代/同步完成、最新探测、加载中关闭、过期关闭、Space/Esc按住去重。第一次运行既有settings contention检查曾出现File.Move的UnauthorizedAccessException；有限复跑40项及随后两次42项均通过。没有将该既有间歇文件访问失败宣称已修复；保留为待观察项。
+- Rust7项、fmt/Clippy、真实Rust DLL/C# ABI（含20,000项扫描上限）和WinUI自包含构建通过；最终DLL SHA256 5CDF2902C46F079619B58FDAE0D31DFA1EB1DFCB77C9C0C9E8A74DDD975E6915。
+- 最终DLL正常和快捷两种模式各3轮图片/视频（共12次）实际激活、正确文件解码、原生窗口契约和keyboard focus=true通过，报告open-mode-027.json / preview-mode-027.json。后台GUID隔离隐藏/单例/停止/重启以及3次开屏生命周期通过，报告background-027.json / splash-027.json。发布脚本6项mock回归通过，无外部写入。
+- Computer Use保持停止，不注入按键、不操作Explorer或用户安装，不改Run/UserChoice。焦点日志、会话/按键模型不能替代实际Explorer第一次Space/Esc关闭、按住关闭不重开或编辑控件回归；这些仍待实窗验收。0.2.7仅本地候选，未提交/推送、未覆盖v0.2.6 Release。
+- 0.2.7 MSI生成与只读检查通过：552个payload文件、后台动作/偏好和0个UserChoice写入。MSI SHA256 C909BF4064DC7373450956D5FF0E0D336979BB199FC9A44197A37D96F0D370A3；installer-background-027-static.json。没有执行该包安装/升级/卸载，用户真实后台仍未更换。

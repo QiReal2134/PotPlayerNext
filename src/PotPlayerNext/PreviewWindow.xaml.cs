@@ -18,6 +18,7 @@ public sealed partial class PreviewWindow : Window
     private MediaPlayer? player;
     private MediaSource? source;
     private bool closed;
+    private bool active;
     private readonly MediaItem item;
     private PlaybackOptions options;
     private readonly Action<string> report;
@@ -68,9 +69,12 @@ public sealed partial class PreviewWindow : Window
         {
             // WinUI restores its last focused child on activation. Do not synchronously
             // refocus or release captures inside WM_ACTIVATE's native focus transition.
-            if (args.WindowActivationState == WindowActivationState.Deactivated)
+            active = args.WindowActivationState != WindowActivationState.Deactivated;
+            if (active) QueueKeyboardFocus();
+            else
                 DispatcherQueue.TryEnqueue(() => { if (!closed) { CancelForward(); EndPan(); } });
         };
+        Root.Loaded += (_, _) => QueueKeyboardFocus();
         Closed += (_, _) =>
         {
             CancelForward(); EndPan(); closed = true; appearance.Dispose(); Video.SetMediaPlayer(null);
@@ -80,6 +84,16 @@ public sealed partial class PreviewWindow : Window
         Root.SizeChanged += (_, _) => ResizeMedia();
         ApplyOptions(); _ = LoadAsync();
     }
+
+    private void QueueKeyboardFocus() => DispatcherQueue.TryEnqueue(() =>
+    {
+        if (closed || !active || Root.XamlRoot is null) return;
+        // Give the first frame a keyboard target, without waiting for media decode
+        // or refocusing synchronously inside WM_ACTIVATE. Keep existing control focus.
+        var focused = Microsoft.UI.Xaml.Input.FocusManager.GetFocusedElement(Root.XamlRoot) is not null
+            || ImageScroll.Focus(FocusState.Programmatic);
+        RuntimeEvidence.Write("preview-keyboard-focus", new { focused });
+    });
 
     private void SetBorderless()
     {
@@ -144,7 +158,7 @@ public sealed partial class PreviewWindow : Window
                 ResizeMedia();
                 player = new MediaPlayer { AutoPlay = true }; player.MediaFailed += Player_MediaFailed; player.MediaOpened += Player_MediaOpened;
                 source = MediaSource.CreateFromStorageFile(file);
-                player.Source = source; Video.SetMediaPlayer(player); Video.Focus(FocusState.Programmatic);
+                player.Source = source; Video.SetMediaPlayer(player); QueueKeyboardFocus();
             }
             else
             {
@@ -157,7 +171,7 @@ public sealed partial class PreviewWindow : Window
                 var bitmap = new BitmapImage { DecodePixelWidth = size.Width, DecodePixelHeight = size.Height };
                 await bitmap.SetSourceAsync(stream);
                 if (closed) return;
-                Picture.Source = bitmap; FitImageWindow(); ResizeMedia(); ImageScroll.Focus(FocusState.Programmatic);
+                Picture.Source = bitmap; FitImageWindow(); ResizeMedia(); QueueKeyboardFocus();
                 RuntimeEvidence.Write("image-decoded", new { width = bitmap.PixelWidth, height = bitmap.PixelHeight });
             }
         }

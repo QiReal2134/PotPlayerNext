@@ -26,7 +26,7 @@ public sealed class BackgroundPreviewHost
     private readonly ExplorerSpacePreview bridge = null!;
     private readonly RegisteredWaitHandle shutdownWait = null!;
     private PreviewWindow? preview;
-    private int generation;
+    private readonly PreviewSessionState session = new();
     private bool closed;
 
     public BackgroundPreviewHost(Application application)
@@ -39,31 +39,46 @@ public sealed class BackgroundPreviewHost
         try { host.AppWindow.IsShownInSwitchers = false; } catch { }
         host.AppWindow.Hide();
         stop = new EventWaitHandle(false, EventResetMode.AutoReset, StopName);
-        bridge = new ExplorerSpacePreview(action => host.DispatcherQueue.TryEnqueue(() => action()), async path => await OpenAsync(path));
+        bridge = new ExplorerSpacePreview(action => host.DispatcherQueue.TryEnqueue(() => action()),
+            async (path, owner) => await OpenAsync(path, owner), CaptureDismiss);
         shutdownWait = ThreadPool.RegisterWaitForSingleObject(stop, (_, _) => host.DispatcherQueue.TryEnqueue(() => Shutdown(application)), null, Timeout.Infinite, executeOnlyOnce: true);
         RuntimeEvidence.Write("background-ready", new { shownInSwitchers = false, visible = host.AppWindow.IsVisible });
     }
 
-    private async Task OpenAsync(string path)
+    private Action? CaptureDismiss(IntPtr foreground)
     {
-        var version = ++generation;
+        var request = session.CaptureDismiss(foreground);
+        if (closed || request is null) return null;
+        return () =>
+        {
+            if (closed || !session.Dismiss(request.Value)) return;
+            var current = preview; preview = null; current?.Close();
+            RuntimeEvidence.Write("background-preview-dismissed");
+        };
+    }
+
+    private async Task OpenAsync(string path, IntPtr owner)
+    {
+        var version = session.BeginOpen(owner);
         try
         {
             var probe = await NativeCatalog.ProbeAsync(path);
-            if (closed || version != generation || probe.Error is not null || probe.Items.Count != 1) return;
-            preview?.Close();
+            if (closed || !session.IsCurrent(version) || probe.Error is not null || probe.Items.Count != 1) return;
+            var previous = preview; preview = null; session.ForgetWindow(); previous?.Close();
             var opened = new PreviewWindow(probe.Items[0], PlaybackSettings.Load(), message => RuntimeEvidence.Write("preview-error", new { message }));
             preview = opened;
-            opened.Closed += (_, _) => { if (preview == opened) preview = null; };
+            session.Opened(version, WinRT.Interop.WindowNative.GetWindowHandle(opened));
+            opened.Closed += (_, _) => { if (preview == opened) { preview = null; session.Reset(); } };
             opened.Activate();
             RuntimeEvidence.Write("preview-activated", new { fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(path))), mode = "background-preview" });
         }
-        catch (Exception error) { RuntimeEvidence.Write("preview-error", new { message = error.Message }); }
+        catch (Exception error) { if (!closed && session.IsCurrent(version)) RuntimeEvidence.Write("preview-error", new { message = error.Message }); }
+        finally { session.EndOpen(version); }
     }
 
     private void Shutdown(Application application)
     {
-        closed = true; ++generation; shutdownWait.Unregister(null); bridge.Dispose(); preview?.Close();
+        closed = true; session.Reset(); shutdownWait.Unregister(null); bridge.Dispose(); preview?.Close();
         stop.Dispose(); mutex.ReleaseMutex(); mutex.Dispose(); host.Close(); application.Exit();
     }
 
