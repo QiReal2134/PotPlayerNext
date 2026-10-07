@@ -1,0 +1,537 @@
+{
+  "schemaVersion": 1,
+  "scope": "Local fixture generation and Windows decoder validation only; WinUI rendering is tested separately.",
+  "timestampUtc": "2026-10-07T14:26:41.7357906+00:00",
+  "run": "7b630539c7a14e4881f3790cf272c8a1",
+  "output": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030",
+  "passed": true,
+  "installedEncoders": [
+    {
+      "codecId": "69be8bb4-d66d-47c8-865a-ed1589433782",
+      "friendlyName": "BMP Encoder",
+      "fileExtensions": [
+        ".bmp",
+        ".dib",
+        ".rle"
+      ],
+      "mimeTypes": [
+        "image/bmp"
+      ]
+    },
+    {
+      "codecId": "114f5598-0b22-40a0-86a1-c83ea495adbd",
+      "friendlyName": "GIF Encoder",
+      "fileExtensions": [
+        ".gif"
+      ],
+      "mimeTypes": [
+        "image/gif"
+      ]
+    },
+    {
+      "codecId": "1a34f5c1-4a5a-46dc-b644-1f4567e7a676",
+      "friendlyName": "JPEG Encoder",
+      "fileExtensions": [
+        ".jpeg",
+        ".jpe",
+        ".jpg",
+        ".jfif",
+        ".exif"
+      ],
+      "mimeTypes": [
+        "image/jpeg",
+        "image/jpe",
+        "image/jpg"
+      ]
+    },
+    {
+      "codecId": "27949969-876a-41d7-9447-568f6a35a4dc",
+      "friendlyName": "PNG Encoder",
+      "fileExtensions": [
+        ".png"
+      ],
+      "mimeTypes": [
+        "image/png"
+      ]
+    },
+    {
+      "codecId": "0131be10-2001-4c5f-a9b0-cc88fab64ce8",
+      "friendlyName": "TIFF Encoder",
+      "fileExtensions": [
+        ".tiff",
+        ".tif"
+      ],
+      "mimeTypes": [
+        "image/tiff",
+        "image/tif"
+      ]
+    },
+    {
+      "codecId": "ac4ce3cb-e1c1-44cd-8215-5a1665509ec2",
+      "friendlyName": "WMPhoto Encoder",
+      "fileExtensions": [
+        ".wdp",
+        ".jxr"
+      ],
+      "mimeTypes": [
+        "image/vnd.ms-photo"
+      ]
+    },
+    {
+      "codecId": "a61dde94-66ce-4ac1-881b-71680588895e",
+      "friendlyName": "DDS Encoder",
+      "fileExtensions": [
+        ".dds"
+      ],
+      "mimeTypes": [
+        "image/vnd.ms-dds"
+      ]
+    },
+    {
+      "codecId": "0dbecec1-9eb3-4860-9c6f-ddbe86634575",
+      "friendlyName": "Microsoft HEIF Encoder",
+      "fileExtensions": [
+        ".heic",
+        ".heif",
+        ".hif"
+      ],
+      "mimeTypes": [
+        "image/heic",
+        "image/heif"
+      ]
+    },
+    {
+      "codecId": "0e4ecd3b-1ba6-4636-8198-56c73040964a",
+      "friendlyName": "Microsoft JPEG XL Encoder",
+      "fileExtensions": [
+        ".JXL"
+      ],
+      "mimeTypes": [
+        "image/JXL"
+      ]
+    }
+  ],
+  "installedDecoders": [
+    {
+      "codecId": "6b462062-7cbf-400d-9fdb-813dd10f2778",
+      "friendlyName": "BMP Decoder",
+      "fileExtensions": [
+        ".bmp",
+        ".dib",
+        ".rle"
+      ],
+      "mimeTypes": [
+        "image/bmp"
+      ]
+    },
+    {
+      "codecId": "381dda3c-9ce9-4834-a23e-1f98f8fc52be",
+      "friendlyName": "GIF Decoder",
+      "fileExtensions": [
+        ".gif"
+      ],
+      "mimeTypes": [
+        "image/gif"
+      ]
+    },
+    {
+      "codecId": "c61bfcdf-2e0f-4aad-a8d7-e06bafebcdfe",
+      "friendlyName": "ICO Decoder",
+      "fileExtensions": [
+        ".ico",
+        ".icon"
+      ],
+      "mimeTypes": [
+        "image/ico",
+        "image/x-icon"
+      ]
+    },
+    {
+      "codecId": "22696b76-881b-48d7-88f0-dc6111ff9f0b",
+      "friendlyName": "CUR Decoder",
+      "fileExtensions": [
+        ".cur"
+      ],
+      "mimeTypes": []
+    },
+    {
+      "codecId": "9456a480-e88b-43ea-9e73-0b2d9b71b1ca",
+      "friendlyName": "JPEG Decoder",
+      "fileExtensions": [
+        ".jpeg",
+        ".jpe",
+        ".jpg",
+        ".jfif",
+        ".exif"
+      ],
+      "mimeTypes": [
+        "image/jpeg",
+        "image/jpe",
+        "image/jpg"
+      ]
+    },
+    {
+      "codecId": "e018945b-aa86-4008-9bd4-6777a1e40c11",
+      "friendlyName": "PNG Decoder",
+      "fileExtensions": [
+        ".png"
+      ],
+      "mimeTypes": [
+        "image/png"
+      ]
+    },
+    {
+      "codecId": "b54e85d9-fe23-499f-8b88-6acea713752b",
+      "friendlyName": "TIFF Decoder",
+      "fileExtensions": [
+        ".tiff",
+        ".tif"
+      ],
+      "mimeTypes": [
+        "image/tiff",
+        "image/tif"
+      ]
+    },
+    {
+      "codecId": "981d9411-909e-42a7-8f5d-a747ff052edb",
+      "friendlyName": "DNG Decoder",
+      "fileExtensions": [
+        ".dng"
+      ],
+      "mimeTypes": [
+        "image/DNG"
+      ]
+    },
+    {
+      "codecId": "a26cec36-234c-4950-ae16-e34aace71d0d",
+      "friendlyName": "WMPhoto Decoder",
+      "fileExtensions": [
+        ".wdp",
+        ".jxr"
+      ],
+      "mimeTypes": [
+        "image/vnd.ms-photo"
+      ]
+    },
+    {
+      "codecId": "9053699f-a341-429d-9e90-ee437cf80c73",
+      "friendlyName": "DDS Decoder",
+      "fileExtensions": [
+        ".dds"
+      ],
+      "mimeTypes": [
+        "image/vnd.ms-dds"
+      ]
+    },
+    {
+      "codecId": "e9a4a80a-44fe-4de4-8971-7150b10a5199",
+      "friendlyName": "Microsoft HEIF Decoder",
+      "fileExtensions": [
+        ".heic",
+        ".heif",
+        ".hif",
+        ".avci",
+        ".heics",
+        ".heifs",
+        ".avcs",
+        ".avif",
+        ".avifs"
+      ],
+      "mimeTypes": [
+        "image/heic",
+        "image/heif",
+        "image/avci",
+        "image/heic-sequence",
+        "image/heif-sequence",
+        "image/avcs",
+        "image/avif",
+        "image/avif-sequence"
+      ]
+    },
+    {
+      "codecId": "7693e886-51c9-4070-8419-9f70738ec8fa",
+      "friendlyName": "Microsoft Webp Decoder",
+      "fileExtensions": [
+        ".webp"
+      ],
+      "mimeTypes": [
+        "image/webp"
+      ]
+    },
+    {
+      "codecId": "41945702-8302-44a6-9445-ac98e8afa086",
+      "friendlyName": "Microsoft Raw Image Decoder",
+      "fileExtensions": [
+        ".3FR",
+        ".ARI",
+        ".ARW",
+        ".BAY",
+        ".CAP",
+        ".CR2",
+        ".CR3",
+        ".CRW",
+        ".DCS",
+        ".DCR",
+        ".DRF",
+        ".EIP",
+        ".ERF",
+        ".FFF",
+        ".IIQ",
+        ".K25",
+        ".KDC",
+        ".MEF",
+        ".MOS",
+        ".MRW",
+        ".NEF",
+        ".NRW",
+        ".ORF",
+        ".ORI",
+        ".PEF",
+        ".PTX",
+        ".PXN",
+        ".RAF",
+        ".RAW",
+        ".RW2",
+        ".RWL",
+        ".SR2",
+        ".SRF",
+        ".SRW",
+        ".X3F",
+        ".DNG"
+      ],
+      "mimeTypes": [
+        "image/3FR",
+        "image/ARI",
+        "image/ARW",
+        "image/BAY",
+        "image/CAP",
+        "image/CR2",
+        "image/CR3",
+        "image/CRW",
+        "image/DCS",
+        "image/DCR",
+        "image/DRF",
+        "image/EIP",
+        "image/ERF",
+        "image/FFF",
+        "image/IIQ",
+        "image/K25",
+        "image/KDC",
+        "image/MEF",
+        "image/MOS",
+        "image/MRW",
+        "image/NEF",
+        "image/NRW",
+        "image/ORF",
+        "image/ORI",
+        "image/PEF",
+        "image/PTX",
+        "image/PXN",
+        "image/RAF",
+        "image/RAW",
+        "image/RW2",
+        "image/RWL",
+        "image/SR2",
+        "image/SRF",
+        "image/SRW",
+        "image/X3F",
+        "image/DNG"
+      ]
+    },
+    {
+      "codecId": "fc6ceece-aef5-4a23-96ec-5984ffb486d9",
+      "friendlyName": "Microsoft JPEG XL Decoder",
+      "fileExtensions": [
+        ".JXL"
+      ],
+      "mimeTypes": [
+        "image/JXL"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "format": "PNG",
+      "extension": ".png",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.png",
+      "bytes": 2644,
+      "width": 320,
+      "height": 180,
+      "encoder": "PNG Encoder",
+      "encoderId": "27949969-876a-41d7-9447-568f6a35a4dc",
+      "decoder": "PNG Decoder",
+      "signatureVerified": true,
+      "sha256": "6F408B116890AA874E6CA643A0AD34D97034B9D028AD060641F291C17C2E4BC5",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 574,
+      "durationSeconds": null
+    },
+    {
+      "format": "JPEG",
+      "extension": ".jpg",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.jpg",
+      "bytes": 4737,
+      "width": 320,
+      "height": 180,
+      "encoder": "JPEG Encoder",
+      "encoderId": "1a34f5c1-4a5a-46dc-b644-1f4567e7a676",
+      "decoder": "JPEG Decoder",
+      "signatureVerified": true,
+      "sha256": "8B18D7D54173F826DE8969C569079B70ADE6CFBF7F29ECEED5C1EBBACEF485D3",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 123,
+      "durationSeconds": null
+    },
+    {
+      "format": "GIF",
+      "extension": ".gif",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.gif",
+      "bytes": 25163,
+      "width": 320,
+      "height": 180,
+      "encoder": "GIF Encoder",
+      "encoderId": "114f5598-0b22-40a0-86a1-c83ea495adbd",
+      "decoder": "GIF Decoder",
+      "signatureVerified": true,
+      "sha256": "FC31565600322A641C97B5B63CE559D94BFD52AD0430E3C0761BE0963A31F445",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 20,
+      "durationSeconds": null
+    },
+    {
+      "format": "TIFF",
+      "extension": ".tiff",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.tiff",
+      "bytes": 10688,
+      "width": 320,
+      "height": 180,
+      "encoder": "TIFF Encoder",
+      "encoderId": "0131be10-2001-4c5f-a9b0-cc88fab64ce8",
+      "decoder": "TIFF Decoder",
+      "signatureVerified": true,
+      "sha256": "CA9DE3F7CA87BE7B41B81BCEB0760A65613A6C6A35ABFC89BB3AE50E6160809B",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 15,
+      "durationSeconds": null
+    },
+    {
+      "format": "BMP",
+      "extension": ".bmp",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.bmp",
+      "bytes": 172854,
+      "width": 320,
+      "height": 180,
+      "encoder": "BMP Encoder",
+      "encoderId": "69be8bb4-d66d-47c8-865a-ed1589433782",
+      "decoder": "BMP Decoder",
+      "signatureVerified": true,
+      "sha256": "84BCC7B7E32D57CD6E82EF1E3D2ED2C392EC3C168FE56449E3773D08394DCA96",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 14,
+      "durationSeconds": null
+    },
+    {
+      "format": "JPEG XR",
+      "extension": ".jxr",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.jxr",
+      "bytes": 2451,
+      "width": 320,
+      "height": 180,
+      "encoder": "WMPhoto Encoder",
+      "encoderId": "ac4ce3cb-e1c1-44cd-8215-5a1665509ec2",
+      "decoder": "WMPhoto Decoder",
+      "signatureVerified": true,
+      "sha256": "911D01612C746DBDA2369716DB0587771B9EE3E459C2A8A6EBF3A18C44A0F677",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 24,
+      "durationSeconds": null
+    },
+    {
+      "format": "SVG",
+      "extension": ".svg",
+      "required": true,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.svg",
+      "bytes": 730,
+      "width": 320,
+      "height": 180,
+      "encoder": "Local secure-static SVG source",
+      "encoderId": null,
+      "decoder": null,
+      "signatureVerified": false,
+      "sha256": "7B51AF2E2BAB7EF3DC3F43855C79EE80D04DBAAAC3987F94768B87FDCB48ABDF",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": null,
+      "durationSeconds": null
+    },
+    {
+      "format": "WebP",
+      "extension": ".webp",
+      "required": false,
+      "status": "optionalUnsupported",
+      "path": null,
+      "bytes": null,
+      "width": null,
+      "height": null,
+      "encoder": null,
+      "encoderId": null,
+      "decoder": null,
+      "signatureVerified": false,
+      "sha256": null,
+      "reason": "No installed BitmapEncoder advertises .webp or image/webp. A decoder alone cannot generate a WebP fixture.",
+      "hResult": null,
+      "milliseconds": null,
+      "durationSeconds": null
+    },
+    {
+      "format": "ASF/WMV",
+      "extension": ".asf",
+      "required": false,
+      "status": "created",
+      "path": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-fixtures-030\\fixture-7b630539c7a14e4881f3790cf272c8a1.asf",
+      "bytes": 48377,
+      "width": 320,
+      "height": 180,
+      "encoder": "MediaComposition / CreateWmv (ASF, WVC1)",
+      "encoderId": null,
+      "decoder": null,
+      "signatureVerified": true,
+      "sha256": "7C3A6DE18446A7D82685F6033AA49F9C7108BDD65A922E6097B3898E68AAA575",
+      "reason": null,
+      "hResult": null,
+      "milliseconds": 527,
+      "durationSeconds": 2.046
+    }
+  ],
+  "limits": {
+    "imageWidth": 320,
+    "imageHeight": 180,
+    "asfSeconds": 2,
+    "operationTimeoutSeconds": 45
+  },
+  "exclusions": [
+    "No renamed containers",
+    "No external downloads",
+    "No WinUI preview launches",
+    "No codec or system configuration changes"
+  ]
+}

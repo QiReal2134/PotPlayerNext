@@ -83,7 +83,7 @@ RegistryValue $capabilities 'ApplicationDescription' 'WinUI 3 图片查看器与
 RegistryValue $capabilities 'ApplicationIcon' '"[#MainExe]",0'
 RegistryValue 'Software\Classes\Applications\PotPlayerNext.exe' 'FriendlyAppName' 'PotPlayerNext'
 RegistryValue 'Software\Classes\Applications\PotPlayerNext.exe\shell\open\command' '' $command
-$types = Get-Content (Join-Path $root 'installer/associations.json') -Raw | ConvertFrom-Json
+$types = & "$PSScriptRoot/get-media-types.ps1"
 foreach ($kind in @('image','video')) {
     $progId = if ($kind -eq 'image') { 'PotPlayerNext.Image' } else { 'PotPlayerNext.Video' }
     RegistryValue "Software\Classes\$progId" '' "PotPlayerNext $kind"

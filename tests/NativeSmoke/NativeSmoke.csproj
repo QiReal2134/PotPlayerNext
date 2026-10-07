@@ -6,9 +6,11 @@
     <PlatformTarget>x64</PlatformTarget>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../src/PotPlayerNext/Services/NativeCatalog.cs" Link="NativeCatalog.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/MediaItem.cs" Link="MediaItem.cs" />
     <Content Include="../../target/release/potplayer_next_core.dll" Link="potplayer_next_core.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

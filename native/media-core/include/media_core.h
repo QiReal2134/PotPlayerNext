@@ -1,5 +1,6 @@
 #ifndef POTPLAYER_NEXT_MEDIA_CORE_H
 #define POTPLAYER_NEXT_MEDIA_CORE_H
+#include <stddef.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -9,6 +10,8 @@ extern "C" {
    Caller must provide valid pointers; null is handled as an error. */
 char *ppn_scan_folder(const char *folder_utf8);
 char *ppn_probe_file(const char *path_utf8);
+/* UTF-8 byte length excluding NUL. Null => 0. Pointer must be an unfreed ABI result. */
+size_t ppn_string_length(const char *value);
 void ppn_string_free(char *value);
 #ifdef __cplusplus
 }

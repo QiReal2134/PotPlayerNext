@@ -1,0 +1,32 @@
+{
+  "timestampUtc": "2026-10-07T14:32:49.5909731+00:00",
+  "scope": "Local warm microbench only; not cold startup, decoder/GPU RAM or all-device performance",
+  "evidence": [
+    {
+      "test": "Warm metadata scan 400 media \u002B 800 non-media, 50 iterations; no decoding",
+      "name": "baseline",
+      "milliseconds": 71.1504,
+      "dllSha256": "86EA87C4699DE307E5197A6DC41100FF9FA984F4F07D92A4ABA991D897ADCB6F"
+    },
+    {
+      "test": "Warm metadata scan 400 media \u002B 800 non-media, 50 iterations; no decoding",
+      "name": "current",
+      "milliseconds": 55.0373,
+      "dllSha256": "25157902ED569365E9F2037D4CBB089E2C7F07BA913D03DC120DEEC61ED45A13"
+    },
+    {
+      "test": "Same 20,000-record JSON, 20 warm parses, managed allocations only",
+      "name": "baseline UTF16/reflection",
+      "milliseconds": 1081.3989,
+      "allocatedBytes": 510526080,
+      "jsonBytes": 4973215
+    },
+    {
+      "test": "Same 20,000-record JSON, 20 warm parses, managed allocations only",
+      "name": "current native UTF8/source-generated metadata",
+      "milliseconds": 679.2817,
+      "allocatedBytes": 202524080,
+      "jsonBytes": 4973215
+    }
+  ]
+}

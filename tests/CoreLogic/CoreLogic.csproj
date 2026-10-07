@@ -16,5 +16,10 @@
     <Compile Include="../../src/PotPlayerNext/Services/LatestAsyncRequest.cs" Link="LatestAsyncRequest.cs" />
     <Compile Include="../../src/PotPlayerNext/Services/PreviewSessionState.cs" Link="PreviewSessionState.cs" />
     <Compile Include="../../src/PotPlayerNext/Services/PreviewKeyLatch.cs" Link="PreviewKeyLatch.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/MediaItem.cs" Link="MediaItem.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/MediaFilter.cs" Link="MediaFilter.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/SvgDimensions.cs" Link="SvgDimensions.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/ExpiringKeyCache.cs" Link="ExpiringKeyCache.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/ThumbnailCacheIdentity.cs" Link="ThumbnailCacheIdentity.cs" />
   </ItemGroup>
 </Project>

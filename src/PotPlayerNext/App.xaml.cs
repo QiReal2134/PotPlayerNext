@@ -59,7 +59,7 @@ public partial class App : Application
             if (probe.Error is not null || probe.Items.Count != 1) throw new IOException(probe.Error ?? "不支持的媒体文件。");
             window = new PreviewWindow(probe.Items[0], Services.PlaybackSettings.Load(), ShowError, request.Preview);
             window.Activate();
-            Services.RuntimeEvidence.Write("preview-activated", new { fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(request.Path!))), mode = request.Preview ? "preview" : "open" });
+            if (Services.RuntimeEvidence.Enabled) Services.RuntimeEvidence.Write("preview-activated", new { fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(request.Path!))), mode = request.Preview ? "preview" : "open" });
         }
         catch (Exception error) { ShowError(error.Message); }
     }

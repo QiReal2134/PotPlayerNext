@@ -72,7 +72,7 @@ Check("Playback defaults and invalid settings", () =>
 });
 Check("Settings persist and malformed JSON recovers", () =>
 {
-    var directory = Path.GetFullPath("artifacts/core-logic"); Directory.CreateDirectory(directory);
+    var directory = TestPaths.Root;
     var path = Path.Combine(directory, "settings-test.json");
     var options = new PlaybackOptions(3.5, false, true); PlaybackSettings.Save(options, path);
     Require(PlaybackSettings.Load(path) == options);
@@ -132,7 +132,7 @@ Check("Normal launch, quick preview and background are distinct", () =>
 });
 Check("Explorer setting persists and old settings migrate", () =>
 {
-    var path = Path.GetFullPath("artifacts/core-logic/explorer-settings.json");
+    var path = Path.Combine(TestPaths.Root, "explorer-settings.json");
     var settings = new PlaybackOptions(2.5, true, false, true);
     PlaybackSettings.Save(settings, path); Require(PlaybackSettings.Load(path) == settings);
     File.WriteAllText(path, "{\"SeekSeconds\":3.5,\"HoldDoubleSpeed\":false,\"ShowPreviewControls\":true}");
@@ -140,7 +140,7 @@ Check("Explorer setting persists and old settings migrate", () =>
 });
 Check("Settings read-modify-write preserves independent fields under contention", () =>
 {
-    var path = Path.GetFullPath("artifacts/core-logic/concurrent-settings.json");
+    var path = Path.Combine(TestPaths.Root, "concurrent-settings.json");
     PlaybackSettings.Save(new PlaybackOptions(), path);
     Parallel.Invoke(
         () => { for (var i = 0; i < 30; i++) PlaybackSettings.Update(s => s with { SeekSeconds = 4.5 }, path); },
@@ -157,6 +157,10 @@ Check("Image preview opens at its aspect ratio within work area", () =>
     Require(small == (720, 180));
 });
 count += await AsyncRequestChecks.RunAsync();
+count += FilterChecks.Run();
+count += ImageFormatChecks.Run();
+count += StyleChecks.Run();
+count += await ThumbnailPipelineChecks.RunAsync();
 Console.WriteLine($"PASS: {count} production core-logic checks. No UI interaction performed.");
 return 0;
 

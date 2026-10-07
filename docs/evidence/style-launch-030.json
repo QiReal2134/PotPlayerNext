@@ -1,0 +1,33 @@
+{
+  "timestampUtc": "2026-10-07T14:33:11.3899597+00:00",
+  "scope": "In-memory beta/default startup + visible template thumbnail binding; no input, registry/defaults/settings mutation or visual acceptance; memory snapshots not benchmarks",
+  "settingsUnchanged": true,
+  "passed": true,
+  "runs": [
+    {
+      "privateBytes": 73457664,
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\style-launch\\21d2fa955daf4d8497ee3c934c66687c\\default.jsonl",
+      "workingSetBytes": 189435904,
+      "passed": true,
+      "style": "default",
+      "thumbnails": 7
+    },
+    {
+      "privateBytes": 69836800,
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\style-launch\\21d2fa955daf4d8497ee3c934c66687c\\compact.jsonl",
+      "workingSetBytes": 179052544,
+      "passed": true,
+      "style": "compact",
+      "thumbnails": 8
+    },
+    {
+      "privateBytes": 67600384,
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\style-launch\\21d2fa955daf4d8497ee3c934c66687c\\cinema.jsonl",
+      "workingSetBytes": 177184768,
+      "passed": true,
+      "style": "cinema",
+      "thumbnails": 6
+    }
+  ],
+  "dllSha256": "94D7C85EC02D307898FF150BFFF9D2A2237E4EF2EA5E8BB00A5A8DEE7C6DE8D3"
+}

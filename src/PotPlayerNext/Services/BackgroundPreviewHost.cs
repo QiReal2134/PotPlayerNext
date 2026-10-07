@@ -70,7 +70,7 @@ public sealed class BackgroundPreviewHost
             session.Opened(version, WinRT.Interop.WindowNative.GetWindowHandle(opened));
             opened.Closed += (_, _) => { if (preview == opened) { preview = null; session.Reset(); } };
             opened.Activate();
-            RuntimeEvidence.Write("preview-activated", new { fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(path))), mode = "background-preview" });
+            if (RuntimeEvidence.Enabled) RuntimeEvidence.Write("preview-activated", new { fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(path))), mode = "background-preview" });
         }
         catch (Exception error) { if (!closed && session.IsCurrent(version)) RuntimeEvidence.Write("preview-error", new { message = error.Message }); }
         finally { session.EndOpen(version); }

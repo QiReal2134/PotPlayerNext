@@ -169,3 +169,15 @@
 - 最终DLL正常和快捷两种模式各3轮图片/视频（共12次）实际激活、正确文件解码、原生窗口契约和keyboard focus=true通过，报告open-mode-027.json / preview-mode-027.json。后台GUID隔离隐藏/单例/停止/重启以及3次开屏生命周期通过，报告background-027.json / splash-027.json。发布脚本6项mock回归通过，无外部写入。
 - Computer Use保持停止，不注入按键、不操作Explorer或用户安装，不改Run/UserChoice。焦点日志、会话/按键模型不能替代实际Explorer第一次Space/Esc关闭、按住关闭不重开或编辑控件回归；这些仍待实窗验收。0.2.7仅本地候选，未提交/推送、未覆盖v0.2.6 Release。
 - 0.2.7 MSI生成与只读检查通过：552个payload文件、后台动作/偏好和0个UserChoice写入。MSI SHA256 C909BF4064DC7373450956D5FF0E0D336979BB199FC9A44197A37D96F0D370A3；installer-background-027-static.json。没有执行该包安装/升级/卸载，用户真实后台仍未更换。
+
+## 0.3.0 性能/格式/beta 候选
+
+- 统一formats清单，新增SVG/ICO/JPEG XR和Windows平台codec路径，视频容器识别扩展；实际codec能力单独说明。非GIF及缩略图单次decoder，保留GIF原生路径。资源预算、取消与未发布source释放；输入SVG16MiB、根头64KiB，DTD/外部解析禁止。
+- 缩略图四路、128项+12MiB估计上限、256项/30秒失败缓存、文件metadata失效；虚拟容器弱目标缓存、无过滤复用集合；删除未使用的ShowPathPreviewAsync。Native JSON直接UTF-8 span+生成metadata，新增length ABI及free/null/UTF8字节测试。构建无新增媒体依赖。
+- beta默认关闭，紧凑/影院native模板保持ItemsStackPanel、主题/亚克力与纯媒体预览不变；新字段JSON兼容。PPN_TEST_EVENTS+UI_STYLE只在内存覆盖，实际默认/紧凑/影院目录及6-8个真实缩略图绑定通过，用户settings SHA256未变化；style-launch-030.json。
+- 本轮再次复现既有File.Move overwrite的UnauthorizedAccessException（并非仅多测试进程竞争）；设置改为File.Replace已有目标，同目录temp/互斥不变、最多5次IO/Windows访问拒绝重试，仍传播永久失败。80项生产逻辑检查及后续两次复验通过，含只读原文件保留/temp清理、share-delete读句柄和多轮字段并发保存；测试fixture GUID隔离。
+- Rust13项、fmt/Clippy、真实ABI/20,001文件限制、WinUI自包含构建通过；Windowssymlink测试因权限1314跳过，不能声称实际符号链接测试通过。PNG/JPEG/GIF/TIFF/BMP/JXR/SVG和ASF/WMV八个真编码fixture实际WinUI解码+尺寸+键盘焦点通过；WebP无本机encoder，HEIF/AVIF/RAW未实测。证据format-fixtures-030.json/format-launch-030.json，不替代视觉/动画/全格式检查。
+- 相同JSON基准20轮耗时1081.40→679.28ms，托管分配510,526,080→202,524,080B；分别低37.2%、60.3%。扫描50轮71.15→55.04ms。仅本机暖微基准、不是整体工作集降幅；performance-030.json及PERFORMANCE.md保存范围。
+- 当前受测DLL SHA256 94D7C85EC02D307898FF150BFFF9D2A2237E4EF2EA5E8BB00A5A8DEE7C6DE8D3。Computer Use保持停止，不输入键盘、不碰用户真实安装/后台/Run/UserChoice；实际Explorer第一次Space/Esc、长按、视觉、多DPI和最新MSI安装/升级仍待验收。最终审查、包和GitHub结果待后续记入。
+- 同一个只读review_all完成全仓复审（native/src/tests/scripts/installer/.github/formats和相关文档，包含staged/unstaged/untracked），执行d018eca基准diff；未新增高信号可操作缺陷。审查排除忽略的生成产物/第三方二进制/许可证，不代表全部交互或全部机器性能。没有生成虚假行内问题。
+- 最终候选正常/快捷两种模式各3轮图片/视频（共12次）正确文件、解码、初始键盘focus和窗口契约通过；后台GUID隔离隐藏/单例/停止/重启、3次开屏及6项离线发布gate通过。最终MSI只读检查：552payload、后台动作、0个UserChoice写入；MSI SHA256 5A11BD564C834385F6A384B6706A18B444069E2E0871D145010C77DAD22AF275。仅生成/只读检查，未安装用户包。

@@ -1,0 +1,23 @@
+{
+  "executableSha256": "94D7C85EC02D307898FF150BFFF9D2A2237E4EF2EA5E8BB00A5A8DEE7C6DE8D3",
+  "runs": [
+    {
+      "elapsedMs": 885.1851,
+      "eventsPath": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\splash-test\\9406e9486cd64af7866ba235d9f960dc\\0.jsonl",
+      "animation": "completed"
+    },
+    {
+      "elapsedMs": 892.3104,
+      "eventsPath": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\splash-test\\9406e9486cd64af7866ba235d9f960dc\\1.jsonl",
+      "animation": "completed"
+    },
+    {
+      "elapsedMs": 895.2917,
+      "eventsPath": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\splash-test\\9406e9486cd64af7866ba235d9f960dc\\2.jsonl",
+      "animation": "completed"
+    }
+  ],
+  "scope": "Native WinUI splash lifecycle/order/duration, main remains alive. No UI input or screenshot; not visual animation acceptance.",
+  "timestampUtc": "2026-10-07T14:38:38.9335520+00:00",
+  "passed": true
+}

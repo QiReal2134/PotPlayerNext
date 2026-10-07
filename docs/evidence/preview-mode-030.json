@@ -1,0 +1,142 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-07T14:38:29.48615+00:00",
+  "appDllSha256": "94D7C85EC02D307898FF150BFFF9D2A2237E4EF2EA5E8BB00A5A8DEE7C6DE8D3",
+  "directOnly": true,
+  "quickPreview": true,
+  "scope": "Direct/explicit registered ProgID launch; direct-only also checks library absence and media window properties; not UserChoice or visual acceptance",
+  "evidence": [
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        },
+        "imageFit": {
+          "width": 960,
+          "height": 540,
+          "mediaWidth": 320,
+          "mediaHeight": 180
+        }
+      }
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        },
+        "imageFit": {
+          "width": 960,
+          "height": 540,
+          "mediaWidth": 320,
+          "mediaHeight": 180
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        }
+      }
+    },
+    {
+      "repetition": 3,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        },
+        "imageFit": {
+          "width": 960,
+          "height": 540,
+          "mediaWidth": 320,
+          "mediaHeight": 180
+        }
+      }
+    },
+    {
+      "repetition": 3,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "keyboardReady": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        }
+      }
+    }
+  ]
+}

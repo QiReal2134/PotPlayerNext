@@ -10,7 +10,7 @@ $archivePath = Join-Path $output "PotPlayerNext-$Version-source.zip"
 $stream = [IO.File]::Open($archivePath, [IO.FileMode]::Create, [IO.FileAccess]::Write)
 $archive = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
 try {
-    foreach ($source in @('native','src','scripts','installer','tests','docs','licenses','.github','.gitignore','.gitattributes','global.json','PotPlayerNext.sln','Cargo.toml','Cargo.lock','LICENSE','README.md','THIRD-PARTY-NOTICES.md')) {
+    foreach ($source in @('native','src','formats','scripts','installer','tests','docs','licenses','.github','.gitignore','.gitattributes','global.json','PotPlayerNext.sln','Cargo.toml','Cargo.lock','LICENSE','README.md','THIRD-PARTY-NOTICES.md')) {
         $path = Join-Path $root $source
         $files = if (Test-Path $path -PathType Container) { Get-ChildItem $path -File -Recurse } else { Get-Item $path }
         foreach ($file in $files) {

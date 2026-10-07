@@ -2,7 +2,6 @@ using DispatcherQueueTimer = Microsoft.UI.Dispatching.DispatcherQueueTimer;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
 using PotPlayerNext.Services;
@@ -19,6 +18,7 @@ public sealed partial class PreviewWindow : Window
     private MediaSource? source;
     private bool closed;
     private bool active;
+    private readonly CancellationTokenSource loadStop = new();
     private readonly MediaItem item;
     private PlaybackOptions options;
     private readonly Action<string> report;
@@ -77,9 +77,9 @@ public sealed partial class PreviewWindow : Window
         Root.Loaded += (_, _) => QueueKeyboardFocus();
         Closed += (_, _) =>
         {
-            CancelForward(); EndPan(); closed = true; appearance.Dispose(); Video.SetMediaPlayer(null);
+            CancelForward(); EndPan(); closed = true; loadStop.Cancel(); loadStop.Dispose(); appearance.Dispose(); Video.SetMediaPlayer(null);
             if (player is not null) { player.MediaFailed -= Player_MediaFailed; player.MediaOpened -= Player_MediaOpened; player.Pause(); player.Dispose(); player = null; }
-            source?.Dispose(); source = null; Picture.Source = null;
+            source?.Dispose(); source = null; (Picture.Source as IDisposable)?.Dispose(); Picture.Source = null;
         };
         Root.SizeChanged += (_, _) => ResizeMedia();
         ApplyOptions(); _ = LoadAsync();
@@ -148,6 +148,7 @@ public sealed partial class PreviewWindow : Window
 
     private async Task LoadAsync()
     {
+        var token = loadStop.Token;
         try
         {
             var file = await StorageFile.GetFileFromPathAsync(item.Path);
@@ -162,17 +163,11 @@ public sealed partial class PreviewWindow : Window
             }
             else
             {
-                using var stream = await file.OpenReadAsync();
-                if (closed) return;
-                var properties = await file.Properties.GetImagePropertiesAsync();
-                if (closed) return;
-                if (properties.Width > 0 && properties.Height > 0) { mediaWidth = properties.Width; mediaHeight = properties.Height; }
-                var size = ImageDecodeBudget.Calculate(properties.Width, properties.Height, 2560);
-                var bitmap = new BitmapImage { DecodePixelWidth = size.Width, DecodePixelHeight = size.Height };
-                await bitmap.SetSourceAsync(stream);
-                if (closed) return;
-                Picture.Source = bitmap; FitImageWindow(); ResizeMedia(); QueueKeyboardFocus();
-                RuntimeEvidence.Write("image-decoded", new { width = bitmap.PixelWidth, height = bitmap.PixelHeight });
+                var image = await ImageLoader.LoadAsync(file, 2560, token);
+                if (closed) { (image.Source as IDisposable)?.Dispose(); return; }
+                mediaWidth = image.Width; mediaHeight = image.Height;
+                Picture.Source = image.Source; FitImageWindow(); ResizeMedia(); QueueKeyboardFocus();
+                RuntimeEvidence.Write("image-decoded", new { width = image.Width, height = image.Height });
             }
         }
         catch (Exception error) { Fail($"无法预览：{error.Message}"); }

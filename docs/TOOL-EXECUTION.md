@@ -35,3 +35,7 @@ Scope Gate：源代码修改限 PotPlayerNext；.NET SDK 安装于项目 `.tools
 0.2.4 范围：用户要求不先开主界面的空格预览，源码/新MSI注册HKCU Run后台组件及维护停止，但本轮不覆盖用户真实0.2.3安装、不执行新包安装/卸载、不改UserChoice。Scope Gate采用项目内publish目录+GUID隔离的后台mutex/事件，真实进程隐藏/单例/stop-helper/重启测试经exec adapter执行，JSON绑定DLL哈希；无键盘注入、无Explorer UI操作、不写真实Run。MSI通过WindowsInstaller只读数据库adapter检查550文件、Run值、执行顺序、DWORD关闭偏好和0个UserChoice写入。UI adapter被用户物理Esc停止后，未再调用；普通非UI构建继续，无法视为UI验收已恢复。
 
 0.2.7 修复 scope：trigger=用户要求修复审查两处并发缺陷及首次空格/Esc关闭、关闭后重开问题；preferred_tool=Current AI Agent / CLI build adapter；selected_tool=注册 apply_patch / exec_command；capability_match=工作区 C#/WinUI 源码与回归、独立发布构建和GUID隔离生命周期测试；risk=只改本仓库及候选产物；fallback_reason=原生工具可用。Scope Gate 不覆盖真实安装/后台进程、Run或UserChoice，不推送或发布新版本，不恢复已停止Computer Use，不注入按键。feedback_gate=共享取消隔离、旧探测无覆盖、预览会话和按键去重回归、WinUI构建/媒体启动通过；exit_condition=有限测试和本地0.2.7候选包，实际Explorer按键仍标待验收。证据保存到 artifacts/fixes-027 与既有测试各GUID目录。
+
+0.3.0 性能/格式/beta UI scope：trigger=用户明确要求推送GitHub、扩展格式、优化性能/缩略图/内存并全仓审查；preferred_tool=Current AI Agent / WebFetch / GitHub CLI；selected_tool=注册 apply_patch、exec_command、web.run 与项目.tools/gh；capability_match=本仓库Rust/C#/WinUI修改、官方SDK核对、隔离基准和构建、现有QiReal2134/PotPlayerNext推送；risk=工作区源码和当前仓库公开提交；fallback_reason=原生CLI/API可用，无已连接GitHub写入MCP。分工通过协作工具：格式/原生、缩略图、beta样式，最后复用同一个只读review_all。Scope Gate不覆盖真实安装/Run/UserChoice、不恢复停止的Computer Use、不注入键盘，不强制推送或覆盖既有tag/release。beta默认关闭，保持纯媒体快捷预览。
+
+feedback_gate=扩展名与真实解码能力分开、缓存字节/项数有界、共享取消正确、beta迁移/关闭默认、实测非伪造、全仓最终审查/修复/有限重审/构建通过；exit_condition=本地候选和推送main及Actions验证，性能只报告受测数据，不声称所有机器或全格式极限。新发布仅在版本/标签/CI和包校验完成后，不复用既有标签；如只能完成分支推送，明确未发布。

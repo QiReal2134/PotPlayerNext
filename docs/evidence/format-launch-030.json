@@ -1,0 +1,93 @@
+{
+  "timestampUtc": "2026-10-07T14:33:03.3607404+00:00",
+  "optionalUnsupported": [
+    {
+      "format": "WebP",
+      "extension": ".webp",
+      "required": false,
+      "status": "optionalUnsupported",
+      "path": null,
+      "bytes": null,
+      "width": null,
+      "height": null,
+      "encoder": null,
+      "encoderId": null,
+      "decoder": null,
+      "signatureVerified": false,
+      "sha256": null,
+      "reason": "No installed BitmapEncoder advertises .webp or image/webp. A decoder alone cannot generate a WebP fixture.",
+      "hResult": null,
+      "milliseconds": null,
+      "durationSeconds": null
+    }
+  ],
+  "scope": "Real workspace WinUI decode/focus; no keyboard injection/Explorer interaction/visual acceptance",
+  "passed": true,
+  "runs": [
+    {
+      "width": 320,
+      "passed": true,
+      "format": "PNG",
+      "extension": ".png",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\png.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "JPEG",
+      "extension": ".jpg",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\jpg.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "GIF",
+      "extension": ".gif",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\gif.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "TIFF",
+      "extension": ".tiff",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\tiff.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "BMP",
+      "extension": ".bmp",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\bmp.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "JPEG XR",
+      "extension": ".jxr",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\jxr.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "SVG",
+      "extension": ".svg",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\svg.jsonl",
+      "height": 180
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "format": "ASF/WMV",
+      "extension": ".asf",
+      "events": "C:\\Users\\Qireal\\Desktop\\Projects\\PotPlayerNext\\artifacts\\format-launch\\2f5191eb724c40a8b4786c9773e93158\\asf.jsonl",
+      "height": 180
+    }
+  ],
+  "dllSha256": "94D7C85EC02D307898FF150BFFF9D2A2237E4EF2EA5E8BB00A5A8DEE7C6DE8D3"
+}

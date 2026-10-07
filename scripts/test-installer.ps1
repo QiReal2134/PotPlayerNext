@@ -17,7 +17,7 @@ $view = $database.GetType().InvokeMember('OpenView','InvokeMethod',$null,$databa
 $record = $view.GetType().InvokeMember('Fetch','InvokeMethod',$null,$view,$null)
 $productCode = $record.GetType().InvokeMember('StringData','GetProperty',$null,$record,@(1))
 foreach ($object in @($record,$view,$database,$installer)) { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($object) }
-$types = Get-Content installer/associations.json -Raw | ConvertFrom-Json
+$types = & "$PSScriptRoot/get-media-types.ps1"
 function UserChoices {
     $result = @{}
     foreach ($ext in @($types.image) + @($types.video)) {

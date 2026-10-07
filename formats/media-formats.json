@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "images": [".jpg", ".jpeg", ".jpe", ".png", ".bmp", ".dib", ".gif", ".tif", ".tiff", ".ico", ".svg", ".jxr", ".wdp", ".hdp"],
+  "platformImages": [".webp", ".heic", ".heif", ".heics", ".avif", ".avifs", ".dds", ".arw", ".cr2", ".cr3", ".dng", ".erf", ".nef", ".nrw", ".orf", ".pef", ".raf", ".raw", ".rw2", ".rwl", ".srw", ".sr2", ".srf"],
+  "videos": [".mp4", ".m4v", ".mkv", ".mov", ".avi", ".wmv", ".asf", ".webm", ".mpeg", ".mpg", ".mpe", ".m1v", ".m2v", ".mpv", ".ts", ".mts", ".m2ts", ".3gp", ".3g2", ".vob"],
+  "notes": {
+    "images": "SVG uses WinUI secure static rendering. Other baseline images use Windows bitmap codecs. GIF animation is preserved on the BitmapImage path.",
+    "platformImages": "Recognized extensions, not a promise of decoding: WebP, HEIF/AVIF, DDS variants and camera RAW require compatible installed Windows imaging codecs; RAW support varies by camera model.",
+    "videos": "Recognized containers; playback depends on the installed Media Foundation demuxers, audio/video codecs and OS edition. No bundled FFmpeg or codec installation."
+  }
+}

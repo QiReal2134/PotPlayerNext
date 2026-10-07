@@ -15,6 +15,10 @@ public sealed partial class MainWindow : Window
     private readonly ThumbnailService thumbnails = new();
     private readonly Dictionary<ListViewItem, CancellationTokenSource> requests = new();
     private List<MediaItem> allItems = new();
+    private IReadOnlyList<MediaItem>? filteredCatalog;
+    private string? filteredKind, filteredQuery;
+    private readonly System.Runtime.CompilerServices.ConditionalWeakTable<ListViewItem, ThumbnailTarget> targets = new();
+    private sealed record ThumbnailTarget(DependencyObject Root, Image? Image);
     private PreviewWindow? preview;
     private CancellationTokenSource? filterDebounce;
     private int scanVersion;
@@ -47,6 +51,7 @@ public sealed partial class MainWindow : Window
         HoldSpeed.IsOn = playbackOptions.HoldDoubleSpeed;
         PreviewProgress.IsOn = playbackOptions.ShowPreviewControls;
         ExplorerPreview.IsOn = playbackOptions.ExplorerPreviewEnabled;
+        InitializeLibraryUi();
         settingsReady = true;
         AppWindow.Resize(new Windows.Graphics.SizeInt32(1120, 780));
         Root.AddHandler(UIElement.KeyDownEvent, new KeyEventHandler(Root_KeyDown), true);
@@ -111,6 +116,7 @@ public sealed partial class MainWindow : Window
     private async Task<bool> LoadFolderAsync(string path)
     {
         var version = ++scanVersion;
+        filterDebounce?.Cancel();
         previewRequests.Invalidate();
         preview?.Close();
         CancelThumbnails(); thumbnails.Clear();
@@ -123,6 +129,7 @@ public sealed partial class MainWindow : Window
             if (result.Error is not null) throw new IOException(result.Error);
             allItems = result.Items; FolderLabel.Text = path;
             ApplyFilter();
+            if (RuntimeEvidence.Enabled) RuntimeEvidence.Write("library-catalog-ready", new { count = allItems.Count });
             Status.Text += $" · 跳过 {result.Skipped} 项" + (result.Truncated ? " · 达到 20,000 项限制，请拆分目录" : "");
             return true;
         }
@@ -136,10 +143,12 @@ public sealed partial class MainWindow : Window
     private void ApplyFilter()
     {
         if (MediaList is null || Search is null || KindFilter is null) return;
-        CancelThumbnails();
         var kind = KindFilter.SelectedIndex switch { 1 => "image", 2 => "video", _ => null };
         var query = Search.Text.Trim();
-        var filtered = allItems.Where(x => (kind is null || x.Kind == kind) && x.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+        if (ReferenceEquals(filteredCatalog, allItems) && kind == filteredKind && query == filteredQuery) return;
+        filteredCatalog = allItems; filteredKind = kind; filteredQuery = query;
+        CancelThumbnails();
+        var filtered = MediaFilter.Apply(allItems, kind, query);
         MediaList.ItemsSource = filtered;
         EmptyState.Visibility = filtered.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         if (filtered.Count == 0)
@@ -151,21 +160,23 @@ public sealed partial class MainWindow : Window
         Status.Text = $"{filtered.Count:N0} 个媒体文件";
     }
 
-    private void Filter_Changed(object sender, TextChangedEventArgs e)
+    private async void Filter_Changed(object sender, TextChangedEventArgs e)
     {
         filterDebounce?.Cancel();
         var cts = filterDebounce = new CancellationTokenSource();
-        DispatcherQueue.TryEnqueue(async () =>
+        try
         {
-            try
-            {
-                await Task.Delay(120, cts.Token);
-                if (!cts.IsCancellationRequested && !closed) ApplyFilter();
-            }
-            catch (OperationCanceledException) { }
-        });
+            await Task.Delay(120, cts.Token);
+            if (!cts.IsCancellationRequested && !closed) ApplyFilter();
+        }
+        catch (OperationCanceledException) { }
+        finally
+        {
+            if (ReferenceEquals(filterDebounce, cts)) filterDebounce = null;
+            cts.Dispose();
+        }
     }
-    private void KindFilter_Changed(object sender, SelectionChangedEventArgs e) => ApplyFilter();
+    private void KindFilter_Changed(object sender, SelectionChangedEventArgs e) { filterDebounce?.Cancel(); ApplyFilter(); }
     private void MediaList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
         for (DependencyObject? element = e.OriginalSource as DependencyObject; element is not null && element != MediaList; element = VisualTreeHelper.GetParent(element))
@@ -207,17 +218,7 @@ public sealed partial class MainWindow : Window
         preview = opened;
         opened.Closed += (_, _) => { if (ReferenceEquals(preview, opened)) preview = null; };
         opened.Activate();
-        RuntimeEvidence.Write("preview-activated", new { kind = item.Kind, fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(item.Path))) });
-    }
-
-    private Task ShowPathPreviewAsync(string path)
-    {
-        return previewRequests.RunAsync(() => NativeCatalog.ProbeAsync(path), result =>
-        {
-            if (closed) return;
-            if (result.Error is not null) throw new IOException(result.Error);
-            if (result.Items.Count == 1) ShowPreview(result.Items[0]);
-        });
+        if (RuntimeEvidence.Enabled) RuntimeEvidence.Write("preview-activated", new { kind = item.Kind, fileToken = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(item.Path))) });
     }
 
     private async void MediaList_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
@@ -226,21 +227,30 @@ public sealed partial class MainWindow : Window
         if (args.InRecycleQueue || args.Phase == 0)
         {
             if (requests.Remove(container, out var previous)) previous.Cancel();
-            if (FindImage(container.ContentTemplateRoot) is { } oldImage) oldImage.Source = null;
+            if (ThumbnailImage(container) is { } oldImage) oldImage.Source = null;
             // Phase 0 can still expose the recycled template's old Content. A cache hit
             // completes synchronously, so defer loading until WinUI assigns the new item.
             if (!args.InRecycleQueue) args.RegisterUpdateCallback(MediaList_ContainerContentChanging);
             return;
         }
-        var image = FindImage(container.ContentTemplateRoot);
+        var image = ThumbnailImage(container);
         if (args.Item is not MediaItem item || image is null || closed) return;
+        if (requests.Remove(container, out var replaced)) replaced.Cancel();
         var request = new CancellationTokenSource(); requests[container] = request;
         try
         {
             var thumbnail = await thumbnails.GetAsync(item, request.Token);
             if (!closed && !request.IsCancellationRequested &&
                 requests.TryGetValue(container, out var current) && ReferenceEquals(current, request) &&
-                ReferenceEquals(sender.ItemFromContainer(container), item)) image.Source = thumbnail;
+                ReferenceEquals(sender.ItemFromContainer(container), item))
+            {
+                image.Source = thumbnail;
+                if (RuntimeEvidence.Enabled)
+                {
+                    var usage = thumbnails.CacheUsage;
+                    RuntimeEvidence.Write("thumbnail-bound", new { available = thumbnail is not null, kind = item.Kind, entries = usage.Entries, estimatedBytes = usage.EstimatedBytes });
+                }
+            }
         }
         catch (OperationCanceledException) { }
         finally
@@ -257,6 +267,16 @@ public sealed partial class MainWindow : Window
         for (var i = 0; i < VisualTreeHelper.GetChildrenCount(root); ++i)
             if (FindImage(VisualTreeHelper.GetChild(root, i)) is { } child) return child;
         return null;
+    }
+
+    private Image? ThumbnailImage(ListViewItem container)
+    {
+        var root = container.ContentTemplateRoot;
+        if (root is null) return null;
+        if (targets.TryGetValue(container, out var target) && ReferenceEquals(root, target.Root)) return target.Image;
+        targets.Remove(container);
+        var image = FindImage(root); targets.Add(container, new(root, image));
+        return image;
     }
 
     private void CancelThumbnails()
@@ -311,7 +331,13 @@ public sealed partial class MainWindow : Window
     private void SavePlaybackSettings()
     {
         if (!settingsReady) return;
-        var desired = new PlaybackOptions(SeekStep.Value, HoldSpeed.IsOn, PreviewProgress.IsOn, ExplorerPreview.IsOn).Normalize();
+        var desired = (playbackOptions with
+        {
+            SeekSeconds = SeekStep.Value,
+            HoldDoubleSpeed = HoldSpeed.IsOn,
+            ShowPreviewControls = PreviewProgress.IsOn,
+            ExplorerPreviewEnabled = ExplorerPreview.IsOn
+        }).Normalize();
         try
         {
             var saved = PlaybackSettings.Update(current => current with
@@ -332,6 +358,7 @@ public sealed partial class MainWindow : Window
         playbackOptions = PlaybackSettings.Load();
         SeekStep.Value = playbackOptions.SeekSeconds; HoldSpeed.IsOn = playbackOptions.HoldDoubleSpeed;
         PreviewProgress.IsOn = playbackOptions.ShowPreviewControls; ExplorerPreview.IsOn = playbackOptions.ExplorerPreviewEnabled;
+        SyncLibraryUiSettings();
         settingsReady = true;
     }
 

@@ -26,7 +26,7 @@ function RunMsi([string]$arguments) {
     return $process.ExitCode
 }
 function Defaults {
-    $types = Get-Content installer/associations.json -Raw | ConvertFrom-Json
+    $types = & "$PSScriptRoot/get-media-types.ps1"
     $values = foreach ($extension in @($types.image) + @($types.video)) {
         $key = Get-ItemProperty "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/FileExts/$extension/UserChoice" -ErrorAction SilentlyContinue
         [pscustomobject]@{extension=$extension; progId=$key.ProgId; hash=$key.Hash}
