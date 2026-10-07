@@ -1,0 +1,116 @@
+name: Windows build and release
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish the matching existing version tag after a successful build'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+      - name: Resolve and validate version
+        id: version
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          $tag = if ($env:REF_TYPE -eq 'tag') { $env:REF_NAME } else { '' }
+          $version = ./scripts/get-version.ps1 -Tag $tag
+          "version=$version" >> $env:GITHUB_OUTPUT
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.99.0 --profile minimal --component clippy --component rustfmt
+          if ($LASTEXITCODE) { throw 'Rust installation failed.' }
+          rustup default 1.99.0
+          if ($LASTEXITCODE) { throw 'Rust toolchain selection failed.' }
+      - name: Test release gates without calling GitHub
+        run: ./scripts/test-release-scripts.ps1
+      - name: Build, test and publish
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/build.ps1 -Publish -OutputDirectory artifacts/app -Version $env:VERSION
+      - name: Build MSI and source archive
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/build-installer.ps1 -SkipBuild -PublishDirectory artifacts/app -Version $env:VERSION
+      - name: Inspect MSI registration and resources
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/inspect-installer.ps1 -MsiPath "artifacts/installer/PotPlayerNext-$($env:VERSION)-win-x64.msi" -ReportPath artifacts/ci-msi-inspection.json
+      - name: Assemble portable and checksummed release bundle
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/package-release.ps1 -PublishDirectory artifacts/app -Version $env:VERSION
+      - name: Upload release bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-assets
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+          path: |
+            artifacts/installer/*.msi
+            artifacts/installer/*.sha256
+            artifacts/installer/*-source.zip
+            artifacts/installer/*-portable.zip
+            artifacts/installer/SHA256SUMS.txt
+            artifacts/installer/release-manifest.json
+      - name: Upload available test evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-evidence
+          retention-days: 14
+          path: |
+            artifacts/native-smoke/results*.json
+            artifacts/ci-msi-inspection.json
+            artifacts/release-script-test/results.json
+
+  release:
+    needs: build
+    if: github.event_name == 'push' && github.ref_type == 'tag' || github.event_name == 'workflow_dispatch' && inputs.publish
+    runs-on: windows-2022
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-assets
+          path: release-assets
+      - name: Verify checksums and publish GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: ./scripts/publish-release.ps1 -Version $env:VERSION -Repository $env:REPOSITORY

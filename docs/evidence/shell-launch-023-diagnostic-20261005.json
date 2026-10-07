@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-04T23:46:57.6966579+00:00",
+  "scope": "Installed app direct and explicit registered ProgID launch; does not change or validate Windows UserChoice selection or visual rendering",
+  "evidence": [
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 2,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 2,
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 2,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 2,
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 3,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 3,
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 3,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 3,
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 4,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 4,
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 4,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 4,
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 5,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 5,
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 5,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 5,
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    }
+  ]
+}

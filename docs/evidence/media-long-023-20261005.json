@@ -1,0 +1,36 @@
+{
+  "scope": "Windows decoder, shell thumbnail, and MediaPlayer APIs only",
+  "passed": true,
+  "timestampUtc": "2026-10-05T00:05:29.6478776+00:00",
+  "evidence": [
+    {
+      "test": "Windows image decoder",
+      "passed": true,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "test": "Windows shell image thumbnail",
+      "passed": true,
+      "bytes": 100758
+    },
+    {
+      "test": "Local H.264 fixture",
+      "passed": true,
+      "milliseconds": 1676,
+      "file": "\u4F60\u597D video-1f13431e6b364da7bcb49782bbc64a7d.mp4"
+    },
+    {
+      "test": "Windows shell video thumbnail",
+      "passed": true,
+      "bytes": 100758
+    },
+    {
+      "test": "MediaPlayer open/play/pause/1.5s forward\u002Bback/2x\u002Brestore/volume",
+      "passed": true,
+      "width": 640,
+      "height": 480,
+      "durationSeconds": 60.0003401
+    }
+  ]
+}

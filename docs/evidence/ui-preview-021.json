@@ -1,0 +1,15 @@
+{
+  "scope": "Registered Computer Use sky adapter; independent qa-screen-v2 video preview, synthetic local H.264 fixture",
+  "passed": true,
+  "observations": [
+    { "action": "Initial preview", "width": 755, "height": 506, "screenX": 488, "screenY": 190, "captionAndControlsVisible": false },
+    { "action": "Top-left drag from (5,5) to (45,45)", "width": 715, "height": 466, "screenX": 538, "screenY": 240, "note": "40 logical px shrink; 50 physical px movement at 125% DPI; no doubled feedback" },
+    { "action": "Bottom-right drag from (711,462) to (650,400)", "width": 654, "height": 403, "screenX": 538, "screenY": 240 },
+    { "action": "Blank area drag from (30,190) to (150,210)", "width": 654, "height": 403, "screenX": 688, "screenY": 265, "note": "Dimensions unchanged" },
+    { "action": "F fullscreen", "width": 1536, "height": 864, "captionAndControlsVisible": false },
+    { "action": "F restore", "width": 654, "height": 403, "screenX": 688, "screenY": 265 },
+    { "action": "Post-fullscreen bottom-right resize", "width": 614, "height": 365, "screenX": 688, "screenY": 265 }
+  ],
+  "earlierSameMediaImplementation": { "videoPlusKeyZoom": true, "videoPanChangedVisibleFrameWithWindowPositionUnchanged": true },
+  "notProven": ["All corners on every DPI/monitor", "Physical long-held keyboard input", "System dark-theme transition", "Animations frame-by-frame", "Default UserChoice Explorer double click"]
+}

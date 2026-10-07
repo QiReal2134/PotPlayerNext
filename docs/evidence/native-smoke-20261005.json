@@ -1,0 +1,32 @@
+{
+  "scope": "Rust release DLL and production C# P/Invoke adapter",
+  "passed": true,
+  "timestampUtc": "2026-10-04T18:21:45.9605591+00:00",
+  "evidence": [
+    {
+      "test": "C# to Rust scan ABI",
+      "passed": true,
+      "count": 2
+    },
+    {
+      "test": "Single-file probe and JSON errors",
+      "passed": true
+    },
+    {
+      "test": "1,000 real ABI allocate/free calls",
+      "passed": true,
+      "milliseconds": 70
+    },
+    {
+      "test": "20,001-file scan limit",
+      "passed": true,
+      "count": 20000,
+      "milliseconds": 110
+    },
+    {
+      "test": "Probe independent of directory scan limit",
+      "passed": true,
+      "milliseconds": 0
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>PotPlayerNext</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/app.ico</ApplicationIcon>
+    <Version>0.2.6</Version>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>true</SelfContained>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="../../LICENSE" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../THIRD-PARTY-NOTICES.md" Link="THIRD-PARTY-NOTICES.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../licenses/*" Link="licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260921001" />
+    <Content Include="../../target/release/potplayer_next_core.dll" Link="potplayer_next_core.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(SkipNativeCore)' != 'true'" />
+  </ItemGroup>
+  <!-- Unpackaged MRT resource generation does not reliably wire app resources into publish. -->
+  <Target Name="PublishWinUiResources" BeforeTargets="ComputeResolvedFilesToPublishList" DependsOnTargets="_GenerateProjectPriFile">
+    <ItemGroup>
+      <ResolvedFileToPublish Include="$(TargetDir)$(AssemblyName).pri" Condition="Exists('$(TargetDir)$(AssemblyName).pri')">
+        <RelativePath>$(AssemblyName).pri</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+      <_AppXbfToPublish Include="$(TargetDir)**\*.xbf" />
+      <_AppXbfToPublish Update="@(_AppXbfToPublish)">
+        <RelativePath>%(_AppXbfToPublish.RecursiveDir)%(_AppXbfToPublish.Filename)%(_AppXbfToPublish.Extension)</RelativePath>
+      </_AppXbfToPublish>
+      <ResolvedFileToPublish Include="@(_AppXbfToPublish)">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>

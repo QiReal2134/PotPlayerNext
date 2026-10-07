@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-05T10:03:59.7759644+00:00",
+  "appDllSha256": "0E66FF00BD8660D748DB2E2923B4206BD4C86102B3B59D91758D90B83A11EC3E",
+  "directOnly": true,
+  "quickPreview": true,
+  "scope": "Direct/explicit registered ProgID launch; direct-only also checks library absence and media window properties; not UserChoice or visual acceptance",
+  "evidence": [
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        },
+        "imageFit": {
+          "width": 960,
+          "height": 540,
+          "mediaWidth": 320,
+          "mediaHeight": 180
+        }
+      }
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": true,
+          "shownInSwitchers": false,
+          "alwaysOnTop": true,
+          "titleBar": false,
+          "hasBorder": false,
+          "borderColorResult": 0
+        }
+      }
+    }
+  ]
+}

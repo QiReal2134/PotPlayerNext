@@ -1,0 +1,12 @@
+{
+  "timestampUtc": "2026-10-04T22:49:55.6909979+00:00",
+  "msiSha256": "CF19360D7EB7750D3BE21ACBE2CBB7DAD76B1229D809587B5B43FF3C662B35DD",
+  "scope": "MSI payload and HKCU registration, not visual/default-choice end-to-end",
+  "associations": 20,
+  "defaultChoicesUnchanged": true,
+  "passed": true,
+  "repairExitCode": 0,
+  "installExitCode": 0,
+  "installedFiles": 550,
+  "productCode": "{8E660D4D-107E-44BC-8714-3CEB36A24C11}"
+}

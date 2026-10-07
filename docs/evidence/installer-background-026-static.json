@@ -1,0 +1,55 @@
+{
+  "actions": [
+    {
+      "Action": "StartPreviewHost",
+      "Type": "210",
+      "Source": "MainExe",
+      "Target": "--background"
+    },
+    {
+      "Action": "StopPreviewHost",
+      "Type": "82",
+      "Source": "MainExe",
+      "Target": "--stop-background"
+    }
+  ],
+  "passed": true,
+  "userChoiceWrites": 0,
+  "scope": "Read-only MSI database inspection, NOT install/upgrade/uninstall or Explorer acceptance.",
+  "msiSha256": "96CD86F3BECE8EC95569F01E90CB2576FCA595ED88309F2624EBDB92540EBA40",
+  "timestampUtc": "2026-10-07T06:30:53.7512141+00:00",
+  "disabledPreference": {
+    "Action": "SetPREVIEWENABLED",
+    "Condition": "EXPLORERPREVIEWPREFERENCE = \"#0\" OR EXPLORERPREVIEWPREFERENCE = \"0\"",
+    "Sequence": "51"
+  },
+  "component": {
+    "Component": "PreviewAutoStart",
+    "Attributes": "324",
+    "Condition": "PREVIEWENABLED <> 0"
+  },
+  "fileCount": 552,
+  "sequence": [
+    {
+      "Action": "StartPreviewHost",
+      "Condition": "NOT (REMOVE ~= \"ALL\") AND PREVIEWENABLED <> 0 AND &Application = 3",
+      "Sequence": "6601"
+    },
+    {
+      "Action": "StopPreviewHost",
+      "Condition": "Installed",
+      "Sequence": "1499"
+    }
+  ],
+  "startup": [
+    {
+      "Registry": "PreviewAutoStartRun",
+      "Root": "1",
+      "Key": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "Name": "PotPlayerNextPreview",
+      "Value": "\"[#MainExe]\" --background",
+      "Component_": "PreviewAutoStart"
+    }
+  ],
+  "version": "0.2.6"
+}

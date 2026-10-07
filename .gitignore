@@ -1,0 +1,15 @@
+.tools/
+.wix/
+target/
+**/bin/
+**/obj/
+.vs/
+artifacts/
+*.user
+.env
+.env.*
+*.pfx
+*.p12
+*.key
+*.pem
+*.dmp

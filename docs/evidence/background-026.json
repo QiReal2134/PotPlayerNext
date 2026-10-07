@@ -1,0 +1,14 @@
+{
+  "scope": "Isolated real WinUI background host: hidden/singleton/stop/restart. No injected keys, Explorer interaction, Run registry writes or visual acceptance.",
+  "evidence": [
+    "hidden host alive",
+    "switchers disabled",
+    "duplicate exits, original alive",
+    "MSI stop helper graceful stop",
+    "restart after mutex release",
+    "no splash or library window"
+  ],
+  "passed": true,
+  "timestampUtc": "2026-10-07T06:28:21.8493903+00:00",
+  "executableSha256": "7C061043C8A2AC191EDF65311CDA88ECDF0A4A5F89FFFE1B74C104D9C1AC405E"
+}

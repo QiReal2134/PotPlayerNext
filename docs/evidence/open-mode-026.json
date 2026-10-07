@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-07T06:28:09.102509+00:00",
+  "appDllSha256": "7C061043C8A2AC191EDF65311CDA88ECDF0A4A5F89FFFE1B74C104D9C1AC405E",
+  "directOnly": true,
+  "quickPreview": false,
+  "scope": "Direct/explicit registered ProgID launch; direct-only also checks library absence and media window properties; not UserChoice or visual acceptance",
+  "evidence": [
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": false,
+          "shownInSwitchers": true,
+          "alwaysOnTop": false,
+          "titleBar": true,
+          "hasBorder": true,
+          "borderColorResult": null
+        }
+      }
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": false,
+          "shownInSwitchers": true,
+          "alwaysOnTop": false,
+          "titleBar": true,
+          "hasBorder": true,
+          "borderColorResult": null
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": false,
+          "shownInSwitchers": true,
+          "alwaysOnTop": false,
+          "titleBar": true,
+          "hasBorder": true,
+          "borderColorResult": null
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true,
+      "windowContract": {
+        "mode": {
+          "quickPreview": false,
+          "shownInSwitchers": true,
+          "alwaysOnTop": false,
+          "titleBar": true,
+          "hasBorder": true,
+          "borderColorResult": null
+        }
+      }
+    }
+  ]
+}

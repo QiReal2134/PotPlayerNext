@@ -1,0 +1,12 @@
+{
+  "oldProductRemoved": true,
+  "passed": true,
+  "fromVersion": "0.2.2",
+  "defaultsUnchanged": true,
+  "toVersion": "0.2.3",
+  "customDirectoryPreserved": true,
+  "timestampUtc": "2026-10-04T23:59:30.7711988+00:00",
+  "newMsiSha256": "1D188A7C1DAD0ADAD9A8285BEF29EBFAB37CA8EC9A5F9F4A6FE1E1DF1EE46ED4",
+  "upgradeExitCode": 0,
+  "installExitCode": 0
+}

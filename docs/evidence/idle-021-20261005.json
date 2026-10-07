@@ -1,0 +1,437 @@
+{
+  "osVersion": "10.0.26300.0",
+  "meanNormalizedCpuPercent": 0.0,
+  "timestampUtc": "2026-10-04T23:20:00.3585317+00:00",
+  "logicalProcessors": 16,
+  "privateWorkingSetSamples": [
+    {
+      "seconds": 1.512,
+      "bytes": 54116352
+    },
+    {
+      "seconds": 31.194,
+      "bytes": 54116352
+    },
+    {
+      "seconds": 60.879,
+      "bytes": 54116352
+    }
+  ],
+  "samples": [
+    {
+      "seconds": 1.088,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 2.525,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 3.536,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 4.544,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 5.564,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 6.57,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 7.577,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 8.587,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 9.595,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 10.612,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 11.621,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 12.626,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 13.638,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 14.648,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 15.658,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 16.663,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 17.675,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 18.686,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 19.695,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 20.703,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 21.714,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 22.722,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 23.729,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 24.744,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 25.763,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 26.783,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 27.79,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 28.801,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 29.81,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 30.818,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 32.207,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 33.215,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 34.222,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 35.228,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 36.243,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 37.26,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 38.269,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 39.277,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 40.295,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 41.301,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 42.308,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 43.327,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 44.337,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 45.351,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 46.37,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 47.389,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 48.396,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 49.403,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 50.412,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 51.424,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 52.434,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 53.445,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 54.457,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 55.462,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 56.47,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 57.476,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 58.493,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 59.5,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    },
+    {
+      "seconds": 60.506,
+      "normalizedCpuPercent": 0.0,
+      "workingSetBytes": 202412032,
+      "privateBytes": 76083200,
+      "handles": 1335
+    }
+  ],
+  "scenario": "Independent WinUI main window with 6 fixture thumbnails, video preview closed; warm process; other test instances may share DLL pages",
+  "scope": "One local 60-second sample, not cold-start/4K/leak or cross-machine benchmark"
+}

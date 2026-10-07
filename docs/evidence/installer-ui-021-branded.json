@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "Welcome: project icon, teal/navy artwork, Chinese instructions and usable Next/Cancel",
+    "License: project banner icon, visible GPL text, Next disabled before acceptance and enabled afterwards",
+    "Directory: correct per-user LocalAppData Programs path, Change/Back/Next/Cancel visible",
+    "Cancellation: branded exit page, explicit system unchanged message, Finish closed all installer windows"
+  ],
+  "msiSha256": "931762AA90B4C6529DF85A79D2344DD0E105ACBF66D0C583CB4BBC5130696056",
+  "passed": true,
+  "limitations": [
+    "Successful installation completion page not visually inspected",
+    "MSI Win32 dialog is not WinUI; main application remains native WinUI 3",
+    "Multiple DPI values not tested"
+  ],
+  "timestampUtc": "2026-10-04T23:30:37.0467258+00:00",
+  "scope": "Native UI inspection of welcome, license, directory and cancelled exit pages at 125% DPI; no UI installation was performed"
+}

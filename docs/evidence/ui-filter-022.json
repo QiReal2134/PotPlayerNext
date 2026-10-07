@@ -1,0 +1,20 @@
+{
+  "timestampUtc": "2026-10-04T23:38:35.4307213+00:00",
+  "limitations": [
+    "Only small fixture directory; not rapid scrolling/1000 media or every format",
+    "Search-space suppression verified on 0.2.1 unchanged Root_KeyDown, not repeated on 0.2.2",
+    "Steady snapshots do not prove frame-by-frame animation quality"
+  ],
+  "passed": true,
+  "observations": [
+    "0.2.1 video search: correct three results but thumbnails remained placeholders after settled refreshes",
+    "0.2.2 initial six-item list rendered thumbnails",
+    "0.2.2 search video: three actual video thumbnails with black letterbox bands",
+    "0.2.2 search image: three actual image thumbnails, cached path",
+    "0.2.2 clear query: six correct media rows and thumbnails restored",
+    "Settings flyout: numeric 1.5 step, double-speed On, controls/Explorer bridge Off; no clipping observed; Escape closed without changing settings",
+    "List selected first BMP then Space: pure image frame without text/title controls/progress; second Space closes image"
+  ],
+  "version": "0.2.2",
+  "scope": "Native independent WinUI snapshots and accessibility, Windows 125% DPI, six BMP/H264 fixtures"
+}

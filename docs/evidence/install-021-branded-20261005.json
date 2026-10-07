@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "installExitCode": 0,
+  "productCode": "{C9FA0AE3-DB0A-4EC4-8B9B-A6B06E3D3C3F}",
+  "defaultChoicesUnchanged": true,
+  "msiSha256": "931762AA90B4C6529DF85A79D2344DD0E105ACBF66D0C583CB4BBC5130696056",
+  "installedFiles": 550,
+  "associations": 20,
+  "repairExitCode": 0,
+  "timestampUtc": "2026-10-04T23:30:38.5043529+00:00",
+  "scope": "MSI payload and HKCU registration, not visual/default-choice end-to-end"
+}

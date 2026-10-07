@@ -1,0 +1,17 @@
+{
+  "processId": 30196,
+  "nativeModule": "Microsoft.UI.Xaml.dll",
+  "missingEvent": "image-decoded",
+  "nativeException": "0xc000027b",
+  "route": "Round 3, image explicit ProgID",
+  "msiSha256": "C1C5BCF07843B3B408EFC4937833068DA6F65C4B3091B6A1FC05F35946E6FF8C",
+  "conclusion": "Reproduced original native failure; no native stack available; concurrency correlated, not a proven root cause",
+  "managedUnhandledEvent": false,
+  "scope": "0.2.3 diagnostic MSI repeated startup while independent UI scanned media directory",
+  "lastEvents": [
+    "launch-request",
+    "preview-activated"
+  ],
+  "timestampUtc": "2026-10-04T23:53:07.5568126+00:00",
+  "failed": true
+}

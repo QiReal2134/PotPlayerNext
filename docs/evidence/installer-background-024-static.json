@@ -1,0 +1,55 @@
+{
+    "timestampUtc":  "2026-10-05T09:37:43.2212259+00:00",
+    "fileCount":  550,
+    "userChoiceWrites":  0,
+    "disabledPreference":  {
+                               "Action":  "SetPREVIEWENABLED",
+                               "Condition":  "EXPLORERPREVIEWPREFERENCE = \"#0\" OR EXPLORERPREVIEWPREFERENCE = \"0\"",
+                               "Sequence":  "51"
+                           },
+    "version":  "0.2.4",
+    "passed":  true,
+    "startup":  [
+                    {
+                        "Registry":  "PreviewAutoStartRun",
+                        "Root":  "1",
+                        "Key":  "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                        "Name":  "PotPlayerNextPreview",
+                        "Value":  "\"[#MainExe]\" --background",
+                        "Component_":  "PreviewAutoStart"
+                    }
+                ],
+    "msiSha256":  "36BF6B108F059811AE59C1CB3E0E34C6EC08341CE6FE30B53565830551174AEB",
+    "component":  {
+                      "Component":  "PreviewAutoStart",
+                      "Attributes":  "324",
+                      "Condition":  "PREVIEWENABLED \u003c\u003e 0"
+                  },
+    "sequence":  [
+                     {
+                         "Action":  "StartPreviewHost",
+                         "Condition":  "NOT (REMOVE ~= \"ALL\") AND PREVIEWENABLED \u003c\u003e 0 AND \u0026Application = 3",
+                         "Sequence":  "6601"
+                     },
+                     {
+                         "Action":  "StopPreviewHost",
+                         "Condition":  "Installed",
+                         "Sequence":  "1499"
+                     }
+                 ],
+    "actions":  [
+                    {
+                        "Action":  "StartPreviewHost",
+                        "Type":  "210",
+                        "Source":  "MainExe",
+                        "Target":  "--background"
+                    },
+                    {
+                        "Action":  "StopPreviewHost",
+                        "Type":  "82",
+                        "Source":  "MainExe",
+                        "Target":  "--stop-background"
+                    }
+                ],
+    "scope":  "Read-only MSI database inspection, NOT install/upgrade/uninstall or Explorer acceptance."
+}

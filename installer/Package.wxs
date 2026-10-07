@@ -1,0 +1,61 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="PotPlayerNext" Manufacturer="PotPlayerNext Contributors" Version="$(var.Version)"
+    UpgradeCode="34C4578E-F24B-489A-92F5-20DDC57D3BE5" Scope="perUser" Language="2052" Codepage="936">
+    <MajorUpgrade DowngradeErrorMessage="已安装更新版本的 PotPlayerNext。" Schedule="afterInstallInitialize"/>
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high"/>
+    <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLFOLDER]" After="CostFinalize" Sequence="both"/>
+    <Property Id="ARPCOMMENTS" Value="Rust + WinUI 3 图片查看器与视频播放器"/>
+    <Property Id="PREVIEWENABLED" Value="1" Secure="yes"/>
+    <Property Id="EXPLORERPREVIEWPREFERENCE" Secure="yes">
+      <RegistrySearch Id="ExplorerPreviewPreference" Root="HKCU" Key="Software\PotPlayerNext\Preferences" Name="ExplorerPreviewEnabled" Type="raw"/>
+    </Property>
+    <!-- AppSearch prefixes REG_DWORD values with '#'; do not treat '#0' as enabled. -->
+    <SetProperty Id="PREVIEWENABLED" Value="0" After="AppSearch" Sequence="both"
+      Condition="EXPLORERPREVIEWPREFERENCE = &quot;#0&quot; OR EXPLORERPREVIEWPREFERENCE = &quot;0&quot;"/>
+    <Property Id="INSTALLFOLDER" Secure="yes">
+      <RegistrySearch Id="PreviousInstallDirectory" Root="HKCU" Key="Software\PotPlayerNext\Installer" Name="InstallFolder" Type="raw"/>
+    </Property>
+    <Property Id="WINDOWSBUILD">
+      <RegistrySearch Id="WindowsBuild" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion" Name="CurrentBuildNumber" Type="raw"/>
+    </Property>
+    <Launch Condition="Installed OR (VersionNT64 AND WINDOWSBUILD &gt;= 19041)" Message="需要 Windows 10 2004 或更新版本的 Windows x64。"/>
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="UserPrograms" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="PotPlayerNext">
+          <Component Id="PreviewAutoStart" Guid="*" Condition="PREVIEWENABLED &lt;&gt; 0" Transitive="yes">
+            <RegistryValue Id="PreviewAutoStartRun" Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run"
+              Name="PotPlayerNextPreview" Type="string" Value="&quot;[#MainExe]&quot; --background" KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppMenu" Name="PotPlayerNext">
+        <Component Id="StartMenu" Guid="*">
+          <Shortcut Id="AppShortcut" Name="PotPlayerNext" Target="[#MainExe]" WorkingDirectory="INSTALLFOLDER" Description="图片查看器与视频播放器"/>
+          <RemoveFolder Id="RemoveAppMenu" On="uninstall"/>
+          <RegistryValue Root="HKCU" Key="Software\PotPlayerNext\Installer" Name="StartMenu" Type="integer" Value="1" KeyPath="yes"/>
+          <RegistryValue Root="HKCU" Key="Software\PotPlayerNext\Installer" Name="InstallFolder" Type="string" Value="[INSTALLFOLDER]"/>
+        </Component>
+      </Directory>
+    </StandardDirectory>
+    <Feature Id="Application" Title="PotPlayerNext" Level="1">
+      <ComponentGroupRef Id="AppFiles"/>
+      <ComponentRef Id="StartMenu"/>
+      <ComponentRef Id="PreviewAutoStart"/>
+      <ComponentGroupRef Id="Associations"/>
+    </Feature>
+    <!-- Resident preview must never hold the installer open. The short stop helper waits
+         for its own background host only; Installed excludes pre-0.2.4 upgrade payloads. -->
+    <CustomAction Id="StopPreviewHost" FileRef="MainExe" ExeCommand="--stop-background" Execute="immediate" Return="ignore"/>
+    <CustomAction Id="StartPreviewHost" FileRef="MainExe" ExeCommand="--background" Execute="immediate" Return="asyncNoWait"/>
+    <InstallExecuteSequence>
+      <Custom Action="StopPreviewHost" Before="InstallInitialize" Condition="Installed"/>
+      <Custom Action="StartPreviewHost" After="InstallFinalize" Condition="NOT (REMOVE ~= &quot;ALL&quot;) AND PREVIEWENABLED &lt;&gt; 0 AND &amp;Application = 3"/>
+    </InstallExecuteSequence>
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER"/>
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.LicenseRtf)"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.DialogBmp)"/>
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.BannerBmp)"/>
+  </Package>
+</Wix>

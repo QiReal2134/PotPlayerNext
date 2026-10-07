@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-05T06:26:36.6379714+00:00",
+  "appDllSha256": "5923E1BD197937917082520F394799704E450B9A7EF5367F416DC33937D326C6",
+  "directOnly": true,
+  "quickPreview": true,
+  "scope": "Direct/explicit registered ProgID launch; direct-only also checks library absence and media window properties; not UserChoice or visual acceptance",
+  "evidence": [
+    {
+      "repetition": 1,
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "repetition": 1,
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    }
+  ]
+}

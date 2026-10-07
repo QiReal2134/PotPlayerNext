@@ -1,0 +1,19 @@
+{
+  "version": "0.2.3 deferred-focus candidate",
+  "timestampUtc": "2026-10-05T04:20:08.4300956+00:00",
+  "limitations": [
+    "No physical hold/release or hold-to-focus-loss chain; not simulated by key taps",
+    "Long-video second consecutive Space pause not completed before next continuation; initial Space pause did have stable position evidence",
+    "Native failure root not established; controlled candidate stress successes do not guarantee every environment"
+  ],
+  "scope": "Native independent Windows 125% DPI UI snapshots and keyboard taps, not physical key holds",
+  "msiSha256": "1D188A7C1DAD0ADAD9A8285BEF29EBFAB37CA8EC9A5F9F4A6FE1E1DF1EE46ED4",
+  "observations": [
+    "Image list Space opened pure image preview; KP_Add produced enlarged cropped view; image Space closed and main-only inventory verified",
+    "Video default preview had no captions, text or transport controls",
+    "Temporarily enabled transport controls only in that preview; A: slider100 to50.307615715169106; D:50.307615715169106 to99.83435873009331; Left:99.83435873009331 to50.14197775808782; Right:50.14197775808782 to99.83435873009331; 3.0185714-second fixture, seek end clamped",
+    "Three-second clip Space observations were ambiguous because clip naturally ended between tool calls; not counted as pause proof",
+    "60.0003401-second fixture: Space paused; transport progress65.43952290030435 and Play button stayed unchanged on subsequent observation",
+    "Visible progress bar pointer click moved paused long clip to9.999943316987965 percent; Space changed Play to Pause and progress subsequently advanced to10.919452104905652 percent"
+  ]
+}

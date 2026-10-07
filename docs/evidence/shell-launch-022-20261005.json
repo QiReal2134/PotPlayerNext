@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "timestampUtc": "2026-10-04T23:37:09.0261541+00:00",
+  "scope": "Installed app direct and explicit registered ProgID launch; does not change or validate Windows UserChoice selection or visual rendering",
+  "evidence": [
+    {
+      "kind": "image",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "kind": "image",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "kind": "video",
+      "route": "quoted ArgumentList direct launch",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    },
+    {
+      "kind": "video",
+      "route": "ShellExecuteEx explicit registered ProgID",
+      "passed": true,
+      "correctFile": true,
+      "decoded": true
+    }
+  ]
+}

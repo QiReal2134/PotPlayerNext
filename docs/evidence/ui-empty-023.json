@@ -1,0 +1,15 @@
+{
+  "version": "0.2.3",
+  "limitations": [
+    "Font resource chain added but screenshot alone cannot identify actual resolved glyph face or quantify blur improvement",
+    "Not a dark-mode or multi-DPI verification",
+    "Installation launch failure captured separately; not release passed"
+  ],
+  "observations": [
+    "Six fixture thumbnails and Chinese/Latin labels rendered",
+    "No-match query: title 没有匹配的媒体 and actionable clear/filter hint; count zero",
+    "True empty directory: title 文件夹中没有媒体 with choose-folder/drop hint; count zero skipped zero"
+  ],
+  "scope": "Independent WinUI steady snapshots and accessibility at 125% DPI",
+  "timestampUtc": "2026-10-04T23:45:31.0727042+00:00"
+}

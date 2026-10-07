@@ -1,0 +1,12 @@
+{
+  "productCode": "{95501A79-ECC6-443F-AC9B-29CDFC07CF06}",
+  "repairExitCode": 0,
+  "defaultChoicesUnchanged": true,
+  "installExitCode": 0,
+  "timestampUtc": "2026-10-04T23:15:23.7066413+00:00",
+  "scope": "MSI payload and HKCU registration, not visual/default-choice end-to-end",
+  "passed": true,
+  "msiSha256": "1B4771F5995D01C698FB4D5DF989493A45739B91FF2B8538A70D3322833F1EC9",
+  "installedFiles": 550,
+  "associations": 20
+}

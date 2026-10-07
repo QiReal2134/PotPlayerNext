@@ -1,0 +1,4 @@
+{
+  "image": [".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tif", ".tiff", ".webp", ".heic", ".avif"],
+  "video": [".mp4", ".m4v", ".mkv", ".mov", ".avi", ".wmv", ".webm", ".mpeg", ".mpg", ".ts"]
+}

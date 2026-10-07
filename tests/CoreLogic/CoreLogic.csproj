@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PotPlayerNext/Services/LruCache.cs" Link="LruCache.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/ImageDecodeBudget.cs" Link="ImageDecodeBudget.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/ForwardKeyGesture.cs" Link="ForwardKeyGesture.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/PlaybackOptions.cs" Link="PlaybackOptions.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/PreviewGeometry.cs" Link="PreviewGeometry.cs" />
+    <Compile Include="../../src/PotPlayerNext/Services/LaunchRequest.cs" Link="LaunchRequest.cs" />
+  </ItemGroup>
+</Project>
